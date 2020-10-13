@@ -27,6 +27,7 @@ import FormsControls from './example-pages/FormsControls';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Categories from './components/admin/Categories';
 import Products from './components/admin/Products';
+import SubCategories from './components/admin/SubCategories';
 
 const DashboardDefault = lazy(() => import('./components/cashier/Dashboard'));
 const Cards3 = lazy(() => import('./example-pages/Cards3'));
@@ -119,6 +120,7 @@ const Routes = () => {
                 '/Maps',
                 '/ListGroups',
                 '/Categories',
+                '/SubCategories',
                 '/Products'
               ]}>
               <LeftSidebar>
@@ -137,6 +139,10 @@ const Routes = () => {
                     <AuthenticatedRoute
                       path="/Categories"
                       component={Categories}
+                    />
+                    <AuthenticatedRoute
+                      path="/SubCategories"
+                      component={SubCategories}
                     />
                     <AuthenticatedRoute path="/Products" component={Products} />
                     <Route path="/Buttons" component={Buttons} />

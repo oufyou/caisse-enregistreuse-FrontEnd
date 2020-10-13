@@ -49,6 +49,11 @@ export default [
     "to": "/Categories"
   },
     {
+    "label": "Sous catégories",
+    "icon": "DashboardTwoToneIcon",
+    "to": "/SubCategories"
+  },
+      {
     "label": "Products",
     "icon": "DashboardTwoToneIcon",
     "to": "/Products"

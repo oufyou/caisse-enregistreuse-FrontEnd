@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import { Card, CardContent, Grid } from '@material-ui/core';
 
@@ -8,9 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import LocalCafeIcon from '@material-ui/icons/LocalCafe';
 import Box from '@material-ui/core/Box';
 import { CartPanel } from './CartPanel';
+import CategoriesService from '../../service/CategoriesService';
+import SubCategoriesService from '../../service/SubCategoriesService';
+import ProductsService from '../../service/ProductsService';
 
 export default function DashboardCashier() {
-  const categories = [
+  /*const categories = [
     { id: 0, name: 'Softs', selected: false },
     { id: 0, name: 'Biers Speciales', selected: false },
     { id: 0, name: 'Boissons chaudes', selected: false },
@@ -23,9 +26,18 @@ export default function DashboardCashier() {
     { id: 0, name: 'Digestifs', selected: false },
     { id: 0, name: 'Spéciaux', selected: false },
     { id: 0, name: 'Réductions', selected: false }
-  ];
+  ];*/
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
 
-  const produits = [
+  useEffect(() => {
+    CategoriesService.getCategories().then(response =>
+      setCategories(response.data)
+    );
+  }, []);
+
+  /*  const produits = [
     { name: 'Cafe noire', price: '8', selected: false, color: '#FF5722' },
     { name: 'Pizza Margarita', price: '38', selected: false, color: '#4CAF50' },
     {
@@ -45,7 +57,7 @@ export default function DashboardCashier() {
     },
     { name: 'Panini Dinde', price: '13', selected: false, color: '#009688' },
     { name: 'Cafe noire', price: '8', selected: false, color: '#8BC34A' }
-  ];
+  ];*/
   const [cartItems, setCartItems] = useState([]);
   const [showCategories, setShowCategories] = useState(false);
   return (
@@ -69,11 +81,16 @@ export default function DashboardCashier() {
                 return (
                   <Grid item xs={6} sm={4} md={2}>
                     <Card
+                      onClick={() => {
+                        SubCategoriesService.getAllByCategory(
+                          Number.parseInt(item.id)
+                        ).then(response => setSubCategories(response.data));
+                      }}
                       className="text-center"
                       style={
                         item.selected ? { backgroundColor: '#E91E63' } : null
                       }>
-                      <Box className="p-3">{item.name}</Box>
+                      <Box className="p-3">{item.nom}</Box>
                     </Card>
                   </Grid>
                 );
@@ -91,10 +108,33 @@ export default function DashboardCashier() {
             </Card>
           )}
           <Box mb={5} mt={6} />
-          <h5 className="display-5 mb-4 font-weight-bold">Categorie 1</h5>
+          {subCategories && (
+            <Grid container spacing={1} mb={5}>
+              <Grid item xs={6} sm={4} md={2}></Grid>
+              {subCategories.map(item => {
+                return (
+                  <Grid item xs={6} sm={4} md={2}>
+                    <Card
+                      onClick={() => {
+                        ProductsService.getAllBySubCategory(
+                          Number.parseInt(item.id)
+                        ).then(response => setProducts(response.data));
+                      }}
+                      className="text-center"
+                      style={
+                        item.selected ? { backgroundColor: '#E91E63' } : null
+                      }>
+                      <Box className="p-3">{item.nom}</Box>
+                    </Card>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          )}
+          <Box mb={5} mt={6} />
 
           <Grid container spacing={2}>
-            {produits.map(item => {
+            {products.map(item => {
               return (
                 <Grid item xs={6} sm={4} md={4}>
                   <Card
@@ -103,15 +143,15 @@ export default function DashboardCashier() {
                       setCartItems(prevState => [...prevState, item]);
                     }}
                     style={{
-                      backgroundColor: item.color,
+                      backgroundColor: item.codecolor,
                       color: 'white'
                     }}
                     className="text-center card-box elevation1 paper rounded border-0">
                     <CardContent className="p-3">
                       <LocalCafeIcon />
                       <br />
-                      <Typography variant="h3">{item.name}</Typography>
-                      <Badge color="primary">{item.price} MAD</Badge>
+                      <Typography variant="h3">{item.nom}</Typography>
+                      <Badge color="primary">{item.pu} MAD</Badge>
                     </CardContent>
                   </Card>
                 </Grid>

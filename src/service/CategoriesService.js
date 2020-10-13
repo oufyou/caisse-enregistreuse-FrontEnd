@@ -21,6 +21,11 @@ class CategoriesService {
       }
     );
   }
+  addSubCategorie(categorieId, subCategorieId) {
+    return axios.patch(API_URL + '/Categories/' + categorieId, {
+      subcategories: [subCategorieId]
+    });
+  }
   removeCategorie(id) {
     return axios.delete(API_URL + '/Categories/' + id, {
       headers: {

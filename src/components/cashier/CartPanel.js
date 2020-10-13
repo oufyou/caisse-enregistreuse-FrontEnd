@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 export const CartPanel = props => {
   let totalPrice = 0;
   props.items.map(item => {
-    totalPrice += Number(item.price * item.quantity);
+    totalPrice += Number(item.pu * item.quantity);
   });
   const [quantity, setQuantity] = useState(0);
   const addValue = value => {
@@ -48,13 +48,13 @@ export const CartPanel = props => {
                   <div className="d-flex">
                     <div>
                       <div className="text-black-50 font-size-lg font-weight-bold">
-                        {item.quantity} x {item.name}
+                        {item.quantity} x {item.nom}
                       </div>
                     </div>
                   </div>
                   <div className="font-weight-bold text-first font-size-lg">
                     {' '}
-                    {item.price * item.quantity} MAD
+                    {item.pu * item.quantity} MAD
                   </div>
                 </div>
                 <Divider className="my-2" />

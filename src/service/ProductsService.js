@@ -10,10 +10,33 @@ class ProductsService {
       }
     });
   }
-  createProduct(nom, description, codebarre, pu, etatexiste, codecolor) {
+  getAllBySubCategory(id) {
+    return axios.get(API_URL + '/Products/subCategory=' + id, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+      }
+    });
+  }
+  createProduct(
+    nom,
+    description,
+    codebarre,
+    pu,
+    etatexiste,
+    codecolor,
+    subcategory_id
+  ) {
     return axios.post(
       API_URL + '/Products',
-      { nom, description, codebarre, pu, etatexiste, codecolor },
+      {
+        nom,
+        description,
+        codebarre,
+        pu,
+        etatexiste,
+        codecolor,
+        subcategory_id: subcategory_id
+      },
       {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('accessToken')

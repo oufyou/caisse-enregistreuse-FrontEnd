@@ -12,6 +12,11 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import CategoriesService from '../../service/CategoriesService';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import SubCategoriesService from '../../service/SubCategoriesService';
 
 const Products = props => {
   const [products, setProducts] = useState([]);
@@ -22,6 +27,10 @@ const Products = props => {
   const [codebarreNewProduct, setCodebarreNewProduct] = useState('');
   const [codecolorNewProduct, setCodecolorNewProduct] = useState('');
   const [etatexisteNewProduct, setEtatexisteNewProduct] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+  const [selectedCategorie, setSelectedCategorie] = useState();
+  const [selectedSubCategorie, setSelectedSubCategorie] = useState('');
 
   const onSubmit = e => {
     e.preventDefault();
@@ -31,12 +40,16 @@ const Products = props => {
       codebarreNewProduct,
       puNewProduct,
       etatexisteNewProduct,
-      codecolorNewProduct
+      codecolorNewProduct,
+      selectedSubCategorie
     );
     setShowAddProduct(false);
   };
   useEffect(() => {
     ProductsService.getProducts().then(response => setProducts(response.data));
+    CategoriesService.getCategories().then(response =>
+      setCategories(response.data)
+    );
   }, []);
   console.log(products);
   return (
@@ -64,6 +77,9 @@ const Products = props => {
           },
           { title: 'nom', field: 'nom' },
           { title: 'Code barre', field: 'codebarre' },
+          { title: 'Catégorie mère', field: 'subCategory.category.nom' },
+          { title: 'Sous-catégorie', field: 'subCategory.nom' },
+          { title: 'Code barre', field: 'codebarre' },
           { title: 'Prix unitaire', field: 'pu' },
           { title: 'Etat existe', field: 'etatexiste' }
         ]}
@@ -90,6 +106,54 @@ const Products = props => {
         <DialogTitle id="simple-dialog-title">Ajouter un produit</DialogTitle>
         <Box p={5}>
           <form onSubmit={onSubmit}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel htmlFor="outlined-age-native-simple">
+                Catégorie mère
+              </InputLabel>
+              <Select
+                fullWidth
+                native
+                value={selectedCategorie}
+                onChange={e => {
+                  setSelectedCategorie(e.target.value);
+                  console.log(e.target.value);
+                  SubCategoriesService.getAllByCategory(
+                    Number.parseInt(e.target.value)
+                  ).then(response => setSubCategories(response.data));
+                }}
+                label="Catégorie mère">
+                <option aria-label="None" value="" />
+                {categories.map(element => (
+                  <option
+                    value={element.id}
+                    onClick={e =>
+                      SubCategoriesService.getAllByCategory(
+                        element.id
+                      ).then(response => setSubCategories(response.data))
+                    }>
+                    {element.nom}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+            <Typography variant="subtitle1">Sous catégorie</Typography>
+
+            <FormControl fullWidth variant="outlined">
+              <InputLabel htmlFor="outlined-age-native-simple">
+                Sous-catégorie
+              </InputLabel>
+              <Select
+                fullWidth
+                native
+                value={selectedSubCategorie}
+                onChange={e => setSelectedSubCategorie(e.target.value)}
+                label="Sous-catégorie">
+                <option aria-label="None" value="" />
+                {subCategories.map(element => (
+                  <option value={element.id}>{element.nom}</option>
+                ))}
+              </Select>
+            </FormControl>
             <Typography variant="subtitle1">Nom de produit</Typography>
             <TextField
               id="nomNewProduct"
