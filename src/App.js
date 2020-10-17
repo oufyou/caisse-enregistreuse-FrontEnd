@@ -130,6 +130,7 @@ import {
   faSignOutAlt,
   faLink
 } from '@fortawesome/free-solid-svg-icons';
+import AuthenticationService from './service/AuthenticationService';
 library.add(
   far,
   faSquare,
@@ -257,6 +258,10 @@ const store = configureStore();
 
 class App extends Component {
   render() {
+    AuthenticationService.registerSuccessfulLoginForJwt(
+      sessionStorage.getItem('authenticatedUser'),
+      window.localStorage.getItem('accessToken')
+    );
     return (
       <Provider store={store}>
         <BrowserRouter basename="/">

@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -67,12 +67,10 @@ const Routes = () => {
     ease: 'anticipate',
     duration: 0.4
   };
-  useEffect(() => {
-    AuthenticationService.registerSuccessfulLoginForJwt(
-      sessionStorage.getItem('authenticatedUser'),
-      window.localStorage.getItem('accessToken')
-    );
-  });
+  AuthenticationService.registerSuccessfulLoginForJwt(
+    sessionStorage.getItem('authenticatedUser'),
+    window.localStorage.getItem('accessToken')
+  );
   return (
     <ThemeProvider theme={MuiTheme}>
       <AnimatePresence>
