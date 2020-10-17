@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -28,6 +28,7 @@ import AuthenticatedRoute from './components/AuthenticatedRoute';
 import Categories from './components/admin/Categories';
 import Products from './components/admin/Products';
 import SubCategories from './components/admin/SubCategories';
+import AuthenticationService from './service/AuthenticationService';
 
 const DashboardDefault = lazy(() => import('./components/cashier/Dashboard'));
 const Cards3 = lazy(() => import('./example-pages/Cards3'));
@@ -65,7 +66,12 @@ const Routes = () => {
     ease: 'anticipate',
     duration: 0.4
   };
-
+  useEffect(() => {
+    AuthenticationService.registerSuccessfulLoginForJwt(
+      sessionStorage.getItem('authenticatedUser'),
+      window.localStorage.getItem('accessToken')
+    );
+  });
   return (
     <ThemeProvider theme={MuiTheme}>
       <AnimatePresence>

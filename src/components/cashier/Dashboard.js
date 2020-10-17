@@ -13,20 +13,6 @@ import SubCategoriesService from '../../service/SubCategoriesService';
 import ProductsService from '../../service/ProductsService';
 
 export default function DashboardCashier() {
-  /*const categories = [
-    { id: 0, name: 'Softs', selected: false },
-    { id: 0, name: 'Biers Speciales', selected: false },
-    { id: 0, name: 'Boissons chaudes', selected: false },
-    { id: 0, name: 'Pates, Pizzas, Lasagnes', selected: false },
-    { id: 0, name: 'viandes', selected: false },
-    { id: 0, name: 'Poissons', selected: false },
-    { id: 0, name: 'Entrées chaudes', selected: false },
-    { id: 0, name: 'Entrées froides', selected: true },
-    { id: 0, name: 'Desserts', selected: false },
-    { id: 0, name: 'Digestifs', selected: false },
-    { id: 0, name: 'Spéciaux', selected: false },
-    { id: 0, name: 'Réductions', selected: false }
-  ];*/
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
@@ -37,27 +23,6 @@ export default function DashboardCashier() {
     );
   }, []);
 
-  /*  const produits = [
-    { name: 'Cafe noire', price: '8', selected: false, color: '#FF5722' },
-    { name: 'Pizza Margarita', price: '38', selected: false, color: '#4CAF50' },
-    {
-      name: 'Tacos Courdon bleu',
-      price: '35',
-      selected: false,
-      color: '#2196F3'
-    },
-    { name: 'Panini Dinde', price: '13', selected: false, color: '#CDDC39' },
-    { name: 'Coca cola', price: '12', selected: true, color: '#E91E63' },
-    { name: 'Pizza Margarita', price: '38', selected: false, color: '#03A9F4' },
-    {
-      name: 'Tacos Courdon bleu',
-      price: '35',
-      selected: false,
-      color: '#9C27B0'
-    },
-    { name: 'Panini Dinde', price: '13', selected: false, color: '#009688' },
-    { name: 'Cafe noire', price: '8', selected: false, color: '#8BC34A' }
-  ];*/
   const [cartItems, setCartItems] = useState([]);
   const [showCategories, setShowCategories] = useState(false);
   return (
@@ -139,8 +104,13 @@ export default function DashboardCashier() {
                 <Grid item xs={6} sm={4} md={4}>
                   <Card
                     onClick={() => {
-                      item.quantity = 1;
-                      setCartItems(prevState => [...prevState, item]);
+                      const newItem = {
+                        id: item.id,
+                        quantity: 1,
+                        nom: item.nom,
+                        pu: item.pu
+                      };
+                      setCartItems(prevState => [...prevState, newItem]);
                     }}
                     style={{
                       backgroundColor: item.codecolor,

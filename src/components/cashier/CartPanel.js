@@ -24,6 +24,7 @@ export const CartPanel = props => {
       }
     }
   };
+  console.log(props.items);
   const keyboardKey = 'text-center font-weight-bolder font-size-xxl p-2';
   return (
     <Box p={1}>
@@ -38,7 +39,9 @@ export const CartPanel = props => {
             height: '40vh',
             overflowY: 'scroll',
             scrollBehavior: 'smooth'
-            /* TODO fix scrolling */
+            /* TODO fix scrolling
+             * TODO FIX LOGIC
+             * */
           }}
           className="p-3">
           {props.items?.map(item => {

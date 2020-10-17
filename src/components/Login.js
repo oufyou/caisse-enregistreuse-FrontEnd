@@ -26,7 +26,7 @@ const Login = () => {
           response.data.accessToken
         );
         console.log(response);
-        localStorage.setItem('accessToken', response.data.accessToken);
+        //localStorage.setItem('accessToken', response.data.accessToken);
         history.push(`/DashboardDefault`);
       })
       .catch(() => {
