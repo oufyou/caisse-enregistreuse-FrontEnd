@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Divider, Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
+import { Delete } from '@material-ui/icons';
+import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { loadCart } from '../../reducers/Cart';
 
 export const CartPanel = props => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   let totalPrice = 0;
   props.items.map(item => {
     totalPrice += Number(item.pu * item.quantity);
@@ -26,10 +32,20 @@ export const CartPanel = props => {
   };
   console.log(props.items);
   const keyboardKey = 'text-center font-weight-bolder font-size-xxl p-2';
+  const onPay = () => {
+    dispatch(loadCart(props.items));
+    history.push('/Pay');
+  };
   return (
     <Box p={1}>
       <Card
-        className="bg-happy-itmeo text-center font-size-xxl font-weight-bold"
+        className="bg-arielle-smile text-center font-size-xxl font-weight-bold"
+        style={{ color: 'white', padding: 10 }}
+        onClick={onPay}>
+        PAYER
+      </Card>
+      <Card
+        className="bg-asteroid text-center font-size-xxl font-weight-bold"
         style={{ color: 'white', padding: 10 }}>
         {totalPrice} DH
       </Card>
@@ -46,7 +62,7 @@ export const CartPanel = props => {
           className="p-3">
           {props.items?.map(item => {
             return (
-              <React.Fragment>
+              <React.Fragment key={item.id}>
                 <div className="d-flex align-items-center justify-content-between">
                   <div className="d-flex">
                     <div>
@@ -59,6 +75,14 @@ export const CartPanel = props => {
                     {' '}
                     {item.pu * item.quantity} MAD
                   </div>
+                  <Delete
+                    onClick={() => {
+                      props.setItems(prevState =>
+                        prevState.filter(e => e.id !== item.id)
+                      );
+                      console.log(item.id);
+                    }}
+                  />
                 </div>
                 <Divider className="my-2" />
               </React.Fragment>

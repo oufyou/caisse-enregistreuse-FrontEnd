@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-
+import { v4 as uuidv4 } from 'uuid';
 import { Card, CardContent, Grid } from '@material-ui/core';
 
 import Badge from '@material-ui/core/Badge';
@@ -105,7 +105,8 @@ export default function DashboardCashier() {
                   <Card
                     onClick={() => {
                       const newItem = {
-                        id: item.id,
+                        id: uuidv4(),
+                        productId: item.id,
                         quantity: 1,
                         nom: item.nom,
                         pu: item.pu

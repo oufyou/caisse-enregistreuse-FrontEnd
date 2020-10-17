@@ -29,6 +29,7 @@ import Categories from './components/admin/Categories';
 import Products from './components/admin/Products';
 import SubCategories from './components/admin/SubCategories';
 import AuthenticationService from './service/AuthenticationService';
+import Pay from './components/cashier/Pay';
 
 const DashboardDefault = lazy(() => import('./components/cashier/Dashboard'));
 const Cards3 = lazy(() => import('./example-pages/Cards3'));
@@ -127,7 +128,8 @@ const Routes = () => {
                 '/ListGroups',
                 '/Categories',
                 '/SubCategories',
-                '/Products'
+                '/Products',
+                '/Pay'
               ]}>
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
@@ -150,6 +152,7 @@ const Routes = () => {
                       path="/SubCategories"
                       component={SubCategories}
                     />
+                    <AuthenticatedRoute path="/Pay" component={Pay} />
                     <AuthenticatedRoute path="/Products" component={Products} />
                     <Route path="/Buttons" component={Buttons} />
                     <Route path="/Dropdowns" component={Dropdowns} />
