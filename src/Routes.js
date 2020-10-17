@@ -67,10 +67,7 @@ const Routes = () => {
     ease: 'anticipate',
     duration: 0.4
   };
-  AuthenticationService.registerSuccessfulLoginForJwt(
-    sessionStorage.getItem('authenticatedUser'),
-    window.localStorage.getItem('accessToken')
-  );
+  AuthenticationService.checkLogin(window.localStorage.getItem('accessToken'));
   return (
     <ThemeProvider theme={MuiTheme}>
       <AnimatePresence>
