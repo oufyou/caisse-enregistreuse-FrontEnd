@@ -53,7 +53,7 @@ const SubCategories = props => {
         color="primary"
         onClick={() => setShowAddSubCategorie(true)}>
         {' '}
-        Ajouter catégorie
+        Ajouter sous-catégorie
       </Button>
       <MaterialTable
         columns={[

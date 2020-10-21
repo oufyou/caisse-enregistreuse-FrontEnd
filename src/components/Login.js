@@ -27,6 +27,7 @@ const Login = () => {
         );
         console.log(response);
         localStorage.setItem('accessToken', response.data.accessToken);
+        sessionStorage.setItem('user', JSON.stringify(response.data));
         history.push(`/DashboardDefault`);
       })
       .catch(() => {

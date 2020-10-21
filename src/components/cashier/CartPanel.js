@@ -34,6 +34,7 @@ export const CartPanel = props => {
   const keyboardKey = 'text-center font-weight-bolder font-size-xxl p-2';
   const onPay = () => {
     dispatch(loadCart(props.items));
+    sessionStorage.setItem('cart', JSON.stringify(props.items));
     history.push('/Pay');
   };
   return (
@@ -91,46 +92,46 @@ export const CartPanel = props => {
         </CardContent>
       </Card>
       <Grid container style={{ height: '30vh' }}>
-        <Grid item xs={120} md={12}>
+        <Grid item xs={12} md={12}>
           <Box className="font-italic bg-gray-300 font-size-xxl text-center">
             {' '}
             > {quantity}{' '}
           </Box>
         </Grid>
-        <Grid item xs={12} md={4} onClick={() => addValue(9)}>
+        <Grid item xs={4} md={4} onClick={() => addValue(9)}>
           <Card className={keyboardKey}>9</Card>
         </Grid>
-        <Grid item xs={12} md={4} onClick={() => addValue(8)}>
+        <Grid item xs={4} md={4} onClick={() => addValue(8)}>
           <Card className={keyboardKey}>8</Card>
         </Grid>
-        <Grid item xs={12} md={4} onClick={() => addValue(7)}>
+        <Grid item xs={4} md={4} onClick={() => addValue(7)}>
           <Card className={keyboardKey}>7</Card>
         </Grid>
-        <Grid item xs={12} md={4} onClick={() => addValue(6)}>
+        <Grid item xs={4} md={4} onClick={() => addValue(6)}>
           <Card className={keyboardKey}>6</Card>
         </Grid>
-        <Grid item xs={12} md={4} onClick={() => addValue(5)}>
+        <Grid item xs={4} md={4} onClick={() => addValue(5)}>
           <Card className={keyboardKey}>5</Card>
         </Grid>
-        <Grid item xs={12} md={4} onClick={() => addValue(4)}>
+        <Grid item xs={4} md={4} onClick={() => addValue(4)}>
           <Card className={keyboardKey}>4</Card>
         </Grid>
-        <Grid item xs={12} md={4} onClick={() => addValue(3)}>
+        <Grid item xs={4} md={4} onClick={() => addValue(3)}>
           <Card className={keyboardKey}>3</Card>
         </Grid>
-        <Grid item xs={12} md={4} onClick={() => addValue(2)}>
+        <Grid item xs={4} md={4} onClick={() => addValue(2)}>
           <Card className={keyboardKey}>2</Card>
         </Grid>
-        <Grid item xs={12} md={4} onClick={() => addValue(1)}>
+        <Grid item xs={4} md={4} onClick={() => addValue(1)}>
           <Card className={keyboardKey}>1</Card>
         </Grid>
-        <Grid item xs={12} md={4} onClick={() => addValue(0)}>
+        <Grid item xs={4} md={4} onClick={() => addValue(0)}>
           <Card className={keyboardKey}>0</Card>
         </Grid>
-        <Grid item xs={12} md={4} onClick={() => addValue('c')}>
+        <Grid item xs={4} md={4} onClick={() => addValue('c')}>
           <Card className={keyboardKey}>C</Card>
         </Grid>
-        <Grid item xs={12} md={4} onClick={() => addValue('ok')}>
+        <Grid item xs={4} md={4} onClick={() => addValue('ok')}>
           <Card className={keyboardKey}>OK</Card>
         </Grid>
       </Grid>
