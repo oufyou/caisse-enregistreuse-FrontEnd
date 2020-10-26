@@ -3,11 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 const API_URL = 'http://localhost:8080/api';
 
-class CategoriesService {
-  getCustomers() {
-    return axios.get(API_URL + '/Customers');
+class CashierService {
+  getCashiers() {
+    return axios.get(API_URL + '/Caissiers');
   }
-  createCustomer(
+  createCashier(
     firstName,
     lastName,
     sexe,
@@ -20,7 +20,7 @@ class CategoriesService {
     updatedBy,
     createdBy,
     code = uuidv4().substring(0, 7),
-    role = ['customer', 'user']
+    role = ['cashier', 'user']
   ) {
     return axios.post(API_URL + '/auth/signup', {
       firstName,
@@ -39,8 +39,8 @@ class CategoriesService {
     });
   }
 
-  removeCustomer(id) {
+  removeCashier(id) {
     return axios.delete(API_URL + '/Users/' + id);
   }
 }
-export default new CategoriesService();
+export default new CashierService();

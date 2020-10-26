@@ -14,6 +14,7 @@ import { LeftSidebar, PresentationLayout } from './layout-blueprints';
 
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import AuthenticationService from './service/AuthenticationService';
+import Cashiers from './components/admin/Cashiers';
 
 const DashboardDefault = lazy(() => import('./components/cashier/Dashboard'));
 const LandingPage = lazy(() => import('./example-pages/LandingPage'));
@@ -22,6 +23,7 @@ const Login = lazy(() => import('./components/Login'));
 const Pay = lazy(() => import('./components/cashier/Pay'));
 const Customers = lazy(() => import('./components/admin/Customers'));
 const Categories = lazy(() => import('./components/admin/Categories'));
+const Sales = lazy(() => import('./components/admin/Sales'));
 const Products = lazy(() => import('./components/admin/Products'));
 const SubCategories = lazy(() => import('./components/admin/SubCategories'));
 
@@ -81,12 +83,13 @@ const Routes = () => {
             <Route
               path={[
                 '/DashboardDefault',
-
                 '/Categories',
                 '/SubCategories',
                 '/Products',
                 '/Pay',
-                '/Customers'
+                '/Customers',
+                '/Sales',
+                '/Cashiers'
               ]}>
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
@@ -111,10 +114,12 @@ const Routes = () => {
                     />
                     <AuthenticatedRoute path="/Pay" component={Pay} />
                     <AuthenticatedRoute path="/Products" component={Products} />
+                    <AuthenticatedRoute path="/Sales" component={Sales} />
                     <AuthenticatedRoute
                       path="/Customers"
                       component={Customers}
                     />
+                    <AuthenticatedRoute path="/Cashiers" component={Cashiers} />
                   </motion.div>
                 </Switch>
               </LeftSidebar>

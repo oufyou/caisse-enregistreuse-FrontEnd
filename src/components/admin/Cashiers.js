@@ -6,29 +6,28 @@ import { Button } from '@material-ui/core';
 
 import { useHistory } from 'react-router-dom';
 import { Delete } from '@material-ui/icons';
-import CustomersService from '../../service/CustomersService';
-import AddCustomer from './AddCustomer';
 
-const Customers = props => {
+import CashierService from '../../service/CashierService';
+import AddCashier from './AddCashier';
+
+const Cashiers = props => {
   let history = useHistory();
 
-  const [customers, setCustomers] = useState([]);
-  const [showAddCustomer, setShowAddCustomer] = useState(false);
+  const [cashiers, setCashiers] = useState([]);
+  const [showAddCashier, setShowAddCashier] = useState(false);
 
   useEffect(() => {
-    CustomersService.getCustomers().then(response =>
-      setCustomers(response.data)
-    );
+    CashierService.getCashiers().then(response => setCashiers(response.data));
   }, []);
-  console.log(customers);
+  console.log(cashiers);
   return (
     <>
       <Button
         variant="contained"
         color="primary"
-        onClick={() => setShowAddCustomer(true)}>
+        onClick={() => setShowAddCashier(true)}>
         {' '}
-        Ajouter client
+        Ajouter caissier
       </Button>
       <MaterialTable
         columns={[
@@ -41,30 +40,30 @@ const Customers = props => {
           { title: 'Addresse', field: 'adress' },
           { title: 'username', field: 'username' }
         ]}
-        data={customers}
+        data={cashiers}
         options={{
           filtering: true,
           pageSize: 10,
           pageSizeOptions: [10],
           actionsColumnIndex: -1
         }}
-        title="Clients"
+        title="Caissiers"
         icons={tableIcons}
         actions={[
           {
             icon: () => <Delete />,
-            tooltip: 'supprimer client',
+            tooltip: 'supprimer caissier',
             onClick: (event, rowData) =>
-              CustomersService.removeCustomer(rowData.id)
+              CashierService.removeCashier(rowData.id)
           }
         ]}
       />
-      <AddCustomer
-        showAddCustomer={showAddCustomer}
-        setShowAddCustomer={setShowAddCustomer}
+      <AddCashier
+        showAddCashier={showAddCashier}
+        setShowAddCashier={setShowAddCashier}
       />
     </>
   );
 };
 
-export default Customers;
+export default Cashiers;

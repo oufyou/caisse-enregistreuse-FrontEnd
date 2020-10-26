@@ -37,6 +37,7 @@ var iconsMap = {
   SettingsIcon: SettingsIcon,
   ViewModuleIcon: ViewModuleIcon
 };
+const user = JSON.parse(sessionStorage.getItem('user'));
 
 export default [
   {
@@ -65,9 +66,19 @@ export default [
   }
   ,
       {
-    "label": "Customers",
+    "label": "Clients",
     "icon": "DashboardTwoToneIcon",
     "to": "/Customers"
+  },
+    {
+    "label": "Caissiers",
+    "icon": "DashboardTwoToneIcon",
+    "to": "/Cashiers"
+  },
+    {
+    "label": "Ventes",
+    "icon": "DashboardTwoToneIcon",
+    "to": "/Sales"
   }
 ]`,
       (key, value) => {

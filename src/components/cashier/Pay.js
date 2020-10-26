@@ -88,7 +88,7 @@ export default function Pay() {
         return PaymentsService.createPayment(payment);
       })
       .then(response => {
-        history.push('/DefaultDashboard');
+        history.push('/DashboardDefault');
         // lancer le systeme d'impression
       });
   };

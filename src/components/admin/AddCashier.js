@@ -8,11 +8,12 @@ import Dialog from '@material-ui/core/Dialog';
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useHistory } from 'react-router';
-import CustomersService from '../../service/CustomersService';
 
-const AddCustomer = props => {
+import CashierService from '../../service/CashierService';
+
+const AddCashier = props => {
   const history = useHistory();
-  const { showAddCustomer, setShowAddCustomer } = props;
+  const { showAddCashier, setShowAddCashier } = props;
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [sexe, setSexe] = useState('');
@@ -26,7 +27,7 @@ const AddCustomer = props => {
     const password = firstName + lastName + phone;
     const createdBy = sessionStorage.getItem('authenticatedUser');
     const updatedBy = sessionStorage.getItem('authenticatedUser');
-    CustomersService.createCustomer(
+    CashierService.createCashier(
       firstName,
       lastName,
       sexe,
@@ -39,15 +40,15 @@ const AddCustomer = props => {
       updatedBy,
       createdBy
     );
-    setShowAddCustomer(false);
-    history.push(`/Customers`);
+    setShowAddCashier(false);
+    history.push(`/Cashiers`);
   };
   return (
     <Dialog
       style={{ padding: '3em' }}
-      onClose={() => setShowAddCustomer(false)}
+      onClose={() => setShowAddCashier(false)}
       aria-labelledby="simple-dialog-title"
-      open={showAddCustomer}>
+      open={showAddCashier}>
       <DialogTitle id="simple-dialog-title">Ajouter un client</DialogTitle>
       <Box p={5}>
         <form onSubmit={onSubmit}>
@@ -124,7 +125,7 @@ const AddCustomer = props => {
                 variant="contained"
                 color="primary"
                 style={{ padding: '1em', marginTop: '2em' }}>
-                Ajouter client
+                Ajouter caissier
               </Button>
             </Grid>
             <Grid item sm={6}>
@@ -135,7 +136,7 @@ const AddCustomer = props => {
                 variant="contained"
                 color="secondary"
                 style={{ padding: '1em', marginTop: '2em' }}
-                onClick={() => setShowAddCustomer(false)}>
+                onClick={() => setShowAddCashier(false)}>
                 Annuler
               </Button>
             </Grid>
@@ -145,4 +146,4 @@ const AddCustomer = props => {
     </Dialog>
   );
 };
-export default AddCustomer;
+export default AddCashier;
