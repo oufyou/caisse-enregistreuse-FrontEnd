@@ -64,9 +64,11 @@ class AuthenticationService {
     return user;
   }
   getLoggedInRoles() {
-    let roles = JSON.parse(sessionStorage.getItem('user')).roles;
-    if (roles === null) return '';
-    return roles;
+    if (sessionStorage.getItem('user')) {
+      return JSON.parse(sessionStorage.getItem('user')).roles;
+    } else {
+      return '';
+    }
   }
   setupAxiosInterceptors(token) {
     axios.interceptors.request.use(config => {
