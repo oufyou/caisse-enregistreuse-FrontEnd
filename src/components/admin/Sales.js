@@ -6,14 +6,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Box from '@material-ui/core/Box';
-import { useHistory } from 'react-router-dom';
 import SalesService from '../../service/SalesService';
 import { Button } from '@material-ui/core';
 import DetailsVente from '../cashier/DetailsVente';
 
 const Sales = props => {
-  let history = useHistory();
-
   const [sales, setSales] = useState([]);
   const [showDetails, setShowDetails] = useState(false);
   const [detailSale, setDetailSale] = useState();

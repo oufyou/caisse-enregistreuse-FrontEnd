@@ -4,15 +4,12 @@ import MaterialTable from 'material-table';
 
 import { Button } from '@material-ui/core';
 
-import { useHistory } from 'react-router-dom';
 import { Delete } from '@material-ui/icons';
 
 import CashierService from '../../service/CashierService';
 import AddCashier from './AddCashier';
 
 const Cashiers = props => {
-  let history = useHistory();
-
   const [cashiers, setCashiers] = useState([]);
   const [showAddCashier, setShowAddCashier] = useState(false);
 
