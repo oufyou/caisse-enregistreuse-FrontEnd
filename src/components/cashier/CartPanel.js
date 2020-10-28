@@ -48,7 +48,7 @@ export const CartPanel = props => {
       <Card
         className="bg-asteroid text-center font-size-xxl font-weight-bold"
         style={{ color: 'white', padding: 10 }}>
-        {totalPrice} DH
+        {totalPrice.toFixed(2)} DH
       </Card>
       <Card style={{}} className="card-box mb-4">
         <CardContent

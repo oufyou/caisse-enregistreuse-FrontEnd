@@ -3,7 +3,14 @@ import React, { Fragment } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
-import { Hidden, IconButton, AppBar, Box, Tooltip } from '@material-ui/core';
+import {
+  Hidden,
+  IconButton,
+  AppBar,
+  Box,
+  Tooltip,
+  Button
+} from '@material-ui/core';
 
 import { connect } from 'react-redux';
 
@@ -58,6 +65,11 @@ const Header = props => {
 
           <Box className="d-flex align-items-center">
             <HeaderUserbox />
+            <Link to={'/Pay'}>
+              <Button variant="contained" color="primary">
+                Completer le dernier paiement
+              </Button>
+            </Link>
             <Box className="toggle-sidebar-btn-mobile">
               <Tooltip title="Toggle Sidebar" placement="right">
                 <IconButton

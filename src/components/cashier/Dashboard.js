@@ -73,7 +73,7 @@ export default function DashboardCashier() {
             </Card>
           )}
           <Box mb={5} mt={6} />
-          {subCategories && (
+          {showCategories && subCategories && (
             <Grid container spacing={1} mb={5}>
               <Grid item xs={6} sm={4} md={2}></Grid>
               {subCategories.map(item => {

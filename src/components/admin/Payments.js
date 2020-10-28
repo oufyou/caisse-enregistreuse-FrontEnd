@@ -7,63 +7,69 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Box from '@material-ui/core/Box';
 import { useHistory } from 'react-router-dom';
-import SalesService from '../../service/SalesService';
+
 import { Button } from '@material-ui/core';
+import PaymentsService from '../../service/PaymentsService';
 import DetailsVente from '../cashier/DetailsVente';
 
-const Sales = props => {
+const Payments = props => {
   let history = useHistory();
 
-  const [sales, setSales] = useState([]);
+  const [payments, setPayments] = useState([]);
   const [showDetails, setShowDetails] = useState(false);
-  const [detailSale, setDetailSale] = useState();
+  const [detailSale, setDetailSale] = useState([]);
 
   useEffect(() => {
-    SalesService.getSales().then(response => setSales(response.data));
+    PaymentsService.getPayments().then(response => setPayments(response.data));
   }, []);
   return (
     <>
       <MaterialTable
         columns={[
+          { title: 'Temps de paiement', field: 'dateheures', type: 'datetime' },
           {
             title: 'Client',
             customFilterAndSearch: (term, rowData) =>
-              (rowData.customer.firstName + rowData.customer.lastName)
+              (rowData.sale.customer.firstName + rowData.sale.customer.lastName)
                 .toLowerCase()
                 .includes(term.toLowerCase()),
             render: rowData => (
               <div>
-                {rowData.customer.firstName} {rowData.customer.lastName}
+                {rowData.sale.customer.firstName}{' '}
+                {rowData.sale.customer.lastName}
               </div>
             )
           },
           {
             title: 'Caissier',
             customFilterAndSearch: (term, rowData) =>
-              (rowData.caissier.firstName + rowData.caissier.lastName)
+              (rowData.sale.caissier.firstName + rowData.sale.caissier.lastName)
                 .toLowerCase()
                 .includes(term.toLowerCase()),
             render: rowData => (
               <div>
-                {rowData.caissier.firstName} {rowData.caissier.lastName}
+                {rowData.sale.caissier.firstName}{' '}
+                {rowData.sale.caissier.lastName}
               </div>
             )
           },
-          { title: 'Total', field: 'total' },
+          { title: 'Montant', field: 'montant' },
+          { title: 'Rendue', field: 'rendre' },
+          { title: 'Type', field: 'type' },
           {
             title: 'Etat',
-            field: 'finished',
-            lookup: { true: 'Finie', false: 'En attente' }
+            field: 'closed',
+            lookup: { true: 'Fermé', false: 'En attente' }
           },
           { title: 'Commentaire', field: 'comment' },
           {
-            title: 'Produits',
+            title: 'Detail du vente',
             render: rowData => (
               <Button
                 variant="contained"
                 color="secondary"
                 onClick={() => {
-                  setDetailSale(rowData);
+                  setDetailSale(rowData.sale);
                   setShowDetails(true);
                 }}
                 style={{ width: 50, borderRadius: '50%' }}
@@ -73,14 +79,14 @@ const Sales = props => {
             )
           }
         ]}
-        data={sales}
+        data={payments}
         options={{
           filtering: true,
           pageSize: 10,
           pageSizeOptions: [10],
           actionsColumnIndex: -1
         }}
-        title="Ventes"
+        title="Paiements"
         icons={tableIcons}
       />
       <Dialog
@@ -97,4 +103,4 @@ const Sales = props => {
   );
 };
 
-export default Sales;
+export default Payments;

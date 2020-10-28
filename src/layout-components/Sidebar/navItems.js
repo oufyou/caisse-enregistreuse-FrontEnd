@@ -16,6 +16,7 @@ import PersonIcon from '@material-ui/icons/PersonOutlined';
 import ReceiptIcon from '@material-ui/icons/ReceiptOutlined';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
+import AuthenticationService from '../../service/AuthenticationService';
 
 var iconsMap = {
   BarChartIcon: BarChartIcon,
@@ -37,57 +38,85 @@ var iconsMap = {
   SettingsIcon: SettingsIcon,
   ViewModuleIcon: ViewModuleIcon
 };
-const user = JSON.parse(sessionStorage.getItem('user'));
-
-export default [
+const roles = AuthenticationService.getLoggedInRoles();
+let menu = `[
   {
-    label: 'Navigation menu',
-    content: JSON.parse(
-      `[
+    "label": "Point de vente",
+    "icon": "DashboardIcon",
+    "to": "/DashboardDefault"
+  }]`;
+if (roles.includes('ROLE_ADMIN')) {
+  menu = `[
   {
-    "label": "Cashier",
+    "label": "Point de vente",
     "icon": "DashboardIcon",
     "to": "/DashboardDefault"
   },
   {
-    "label": "Categories",
+    "label": "Gestion des categories",
     "icon": "DashboardTwoToneIcon",
     "to": "/Categories"
   },
     {
-    "label": "Sous catégories",
+    "label": "Gestion des sous catégories",
     "icon": "DashboardTwoToneIcon",
     "to": "/SubCategories"
   },
       {
-    "label": "Products",
+    "label": "Gestion des produits",
     "icon": "DashboardTwoToneIcon",
     "to": "/Products"
   }
   ,
       {
-    "label": "Clients",
+    "label": "Gestion des clients",
     "icon": "DashboardTwoToneIcon",
     "to": "/Customers"
   },
     {
-    "label": "Caissiers",
+    "label": "Gestion des caissiers",
     "icon": "DashboardTwoToneIcon",
     "to": "/Cashiers"
   },
     {
-    "label": "Ventes",
+    "label": "Historique des ventes",
     "icon": "DashboardTwoToneIcon",
     "to": "/Sales"
+  },
+    {
+    "label": "Historique des paiements",
+    "icon": "DashboardTwoToneIcon",
+    "to": "/Payments"
   }
-]`,
-      (key, value) => {
-        if (key === 'icon') {
-          return iconsMap[value];
-        } else {
-          return value;
-        }
+]`;
+} else if (roles.includes('ROLE_CASHIER')) {
+  menu = `[
+  {
+    "label": "Point de vente",
+    "icon": "DashboardIcon",
+    "to": "/DashboardDefault"
+  },
+    {
+    "label": "Historique des ventes",
+    "icon": "DashboardTwoToneIcon",
+    "to": "/Sales"
+  },
+    {
+    "label": "Historique des paiements",
+    "icon": "DashboardTwoToneIcon",
+    "to": "/Payments"
+  }
+]`;
+}
+export default [
+  {
+    label: 'Navigation menu',
+    content: JSON.parse(menu, (key, value) => {
+      if (key === 'icon') {
+        return iconsMap[value];
+      } else {
+        return value;
       }
-    )
+    })
   }
 ];

@@ -5,15 +5,13 @@ import { Link } from 'react-router-dom';
 
 import { IconButton, Box } from '@material-ui/core';
 
-import projectLogo from '../../assets/images/react.svg';
+import projectLogo from '../../assets/images/logo_lilly.png';
 
 const HeaderLogo = props => {
   return (
     <Fragment>
       <div className={clsx('app-header-logo', {})}>
-        <Box
-          className="header-logo-wrapper"
-          title="Carolina React Admin Dashboard with Material-UI Free">
+        <Box className="header-logo-wrapper" title="Lilly Gourmet">
           <Link to="/DashboardDefault" className="header-logo-wrapper-link">
             <IconButton
               color="primary"
@@ -21,7 +19,7 @@ const HeaderLogo = props => {
               className="header-logo-wrapper-btn">
               <img
                 className="app-header-logo-img"
-                alt="Carolina React Admin Dashboard with Material-UI Free"
+                alt="Lilly Gourmet"
                 src={projectLogo}
               />
             </IconButton>

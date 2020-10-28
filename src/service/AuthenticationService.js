@@ -64,7 +64,7 @@ class AuthenticationService {
     return user;
   }
   getLoggedInRoles() {
-    let roles = sessionStorage.getItem(ROLE_SESSION_ATTRIBUTE_NAME);
+    let roles = JSON.parse(sessionStorage.getItem('user')).roles;
     if (roles === null) return '';
     return roles;
   }

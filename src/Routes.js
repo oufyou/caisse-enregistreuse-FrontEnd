@@ -15,6 +15,7 @@ import { LeftSidebar, PresentationLayout } from './layout-blueprints';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import AuthenticationService from './service/AuthenticationService';
 import Cashiers from './components/admin/Cashiers';
+import Payments from './components/admin/Payments';
 
 const DashboardDefault = lazy(() => import('./components/cashier/Dashboard'));
 const LandingPage = lazy(() => import('./example-pages/LandingPage'));
@@ -89,6 +90,7 @@ const Routes = () => {
                 '/Pay',
                 '/Customers',
                 '/Sales',
+                '/Payments',
                 '/Cashiers'
               ]}>
               <LeftSidebar>
@@ -115,6 +117,7 @@ const Routes = () => {
                     <AuthenticatedRoute path="/Pay" component={Pay} />
                     <AuthenticatedRoute path="/Products" component={Products} />
                     <AuthenticatedRoute path="/Sales" component={Sales} />
+                    <AuthenticatedRoute path="/Payments" component={Payments} />
                     <AuthenticatedRoute
                       path="/Customers"
                       component={Customers}
