@@ -23,7 +23,7 @@ export default function SessionPOSClose() {
   return (
     <>
       <Grid md={2} xs={12}>
-        <Typography variant="h3">Montant d'ouverture</Typography>
+        <Typography variant="h3">Montant de fermeture de caisse</Typography>
       </Grid>
       <Grid md={5} xs={12}>
         <TextField
