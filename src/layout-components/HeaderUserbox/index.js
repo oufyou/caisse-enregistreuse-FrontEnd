@@ -78,14 +78,7 @@ export default function HeaderUserbox() {
               </span>
             </div>
             <Divider className="w-100 mt-2" />
-            <ListItem
-              button
-              onClick={() => {
-                AuthenticationService.logout();
-                history.push(`/DashboardDefault`);
-              }}>
-              Deconnecter
-            </ListItem>
+
             <ListItem
               button
               onClick={() => {

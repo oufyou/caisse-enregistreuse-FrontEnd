@@ -8,7 +8,7 @@ class SessionPOSService {
       .post(API_URL + '/SessionPOSs', {
         caissier_id: JSON.parse(sessionStorage.getItem('user')).id,
         OpenMontant: start,
-        CloseMontant: 0,
+        CloseMontant: null,
         State: false,
         Comment: null
       })
