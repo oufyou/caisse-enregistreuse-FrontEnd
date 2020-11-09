@@ -84,7 +84,14 @@ export default function HeaderUserbox() {
                 AuthenticationService.logout();
                 history.push(`/DashboardDefault`);
               }}>
-              Logout
+              Deconnecter
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => {
+                history.push(`/SessionPOSClose`);
+              }}>
+              Fermer la caisse
             </ListItem>
             <Divider className="w-100" />
             <ListItem className="d-block rounded-bottom px-3 pt-3 pb-0 text-center">

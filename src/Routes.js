@@ -16,6 +16,8 @@ import AuthenticatedRoute from './components/AuthenticatedRoute';
 import AuthenticationService from './service/AuthenticationService';
 import Cashiers from './components/admin/Cashiers';
 import Payments from './components/admin/Payments';
+import SessionPOS from './components/SessionPOS';
+import SessionPOSClose from './components/SessionPOSClose';
 
 const DashboardDefault = lazy(() => import('./components/cashier/Dashboard'));
 const LandingPage = lazy(() => import('./example-pages/LandingPage'));
@@ -91,7 +93,9 @@ const Routes = () => {
                 '/Customers',
                 '/Sales',
                 '/Payments',
-                '/Cashiers'
+                '/Cashiers',
+                '/SessionPOS',
+                '/SessionPOSClose'
               ]}>
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
@@ -104,6 +108,14 @@ const Routes = () => {
                     <AuthenticatedRoute
                       path="/DashboardDefault"
                       component={DashboardDefault}
+                    />
+                    <AuthenticatedRoute
+                      path="/SessionPOS"
+                      component={SessionPOS}
+                    />
+                    <AuthenticatedRoute
+                      path="/SessionPOSClose"
+                      component={SessionPOSClose}
                     />
 
                     <AuthenticatedRoute
