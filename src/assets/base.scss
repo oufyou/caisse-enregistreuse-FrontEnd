@@ -21,3 +21,12 @@
 // Layout Blueprints
 
 @import "layout-blueprints";
+
+@media print {
+  body .app-sidebar-wrapper-fixed  ,body .app-header {
+    display: none;
+  }
+  .no-print{
+    display: none;
+  }
+}

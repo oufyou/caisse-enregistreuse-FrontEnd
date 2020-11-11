@@ -14,10 +14,6 @@ import { LeftSidebar, PresentationLayout } from './layout-blueprints';
 
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import AuthenticationService from './service/AuthenticationService';
-import Cashiers from './components/admin/Cashiers';
-import Payments from './components/admin/Payments';
-import SessionPOS from './components/SessionPOS';
-import SessionPOSClose from './components/SessionPOSClose';
 
 const DashboardDefault = lazy(() => import('./components/cashier/Dashboard'));
 const LandingPage = lazy(() => import('./example-pages/LandingPage'));
@@ -29,6 +25,12 @@ const Categories = lazy(() => import('./components/admin/Categories'));
 const Sales = lazy(() => import('./components/admin/Sales'));
 const Products = lazy(() => import('./components/admin/Products'));
 const SubCategories = lazy(() => import('./components/admin/SubCategories'));
+const TicketZ = lazy(() => import('./components/admin/TicketZ'));
+const TicketX = lazy(() => import('./components/admin/TicketX'));
+const Payments = lazy(() => import('./components/admin/Payments'));
+const Cashiers = lazy(() => import('./components/admin/Cashiers'));
+const SessionPOSClose = lazy(() => import('./components/SessionPOSClose'));
+const SessionPOS = lazy(() => import('./components/SessionPOS'));
 
 const Routes = () => {
   const location = useLocation();
@@ -60,9 +62,7 @@ const Routes = () => {
         <Suspense
           fallback={
             <div className="d-flex align-items-center vh-100 justify-content-center text-center font-weight-bold font-size-lg py-3">
-              <div className="w-50 mx-auto">
-                Please wait while we load the live preview examples
-              </div>
+              <div className="w-50 mx-auto">Lilly Gourmet</div>
             </div>
           }>
           <Switch>
@@ -95,7 +95,9 @@ const Routes = () => {
                 '/Payments',
                 '/Cashiers',
                 '/SessionPOS',
-                '/SessionPOSClose'
+                '/SessionPOSClose',
+                '/TicketZ',
+                '/TicketX'
               ]}>
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
@@ -113,6 +115,8 @@ const Routes = () => {
                       path="/SessionPOS"
                       component={SessionPOS}
                     />
+                    <AuthenticatedRoute path="/TicketZ" component={TicketZ} />
+                    <AuthenticatedRoute path="/TicketX" component={TicketX} />
                     <AuthenticatedRoute
                       path="/SessionPOSClose"
                       component={SessionPOSClose}

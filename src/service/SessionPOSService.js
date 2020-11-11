@@ -1,14 +1,17 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/api';
-
+/*
+ * sessionPOS_State False z3ma rahna fwest session
+ *
+ * */
 class SessionPOSService {
   startSessionPOS(start) {
     return axios
       .post(API_URL + '/SessionPOSs', {
         caissier_id: JSON.parse(sessionStorage.getItem('user')).id,
         OpenMontant: start,
-        CloseMontant: null,
+        CloseMontant: 0,
         State: false,
         Comment: null
       })

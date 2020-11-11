@@ -130,6 +130,8 @@ import {
   faSignOutAlt,
   faLink
 } from '@fortawesome/free-solid-svg-icons';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 library.add(
   far,
@@ -259,14 +261,16 @@ const store = configureStore();
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <BrowserRouter basename="/">
-          <CssBaseline />
-          <ScrollToTop>
-            <Routes />
-          </ScrollToTop>
-        </BrowserRouter>
-      </Provider>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Provider store={store}>
+          <BrowserRouter basename="/">
+            <CssBaseline />
+            <ScrollToTop>
+              <Routes />
+            </ScrollToTop>
+          </BrowserRouter>
+        </Provider>
+      </MuiPickersUtilsProvider>
     );
   }
 }

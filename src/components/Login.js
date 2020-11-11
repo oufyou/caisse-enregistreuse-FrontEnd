@@ -28,7 +28,7 @@ const Login = () => {
         console.log(response);
         localStorage.setItem('accessToken', response.data.accessToken);
         sessionStorage.setItem('user', JSON.stringify(response.data));
-        sessionStorage.setItem('sessionPOS_Started', false);
+        sessionStorage.setItem('sessionPOS_State', true);
         history.push(`/SessionPOS`);
       })
       .catch(() => {

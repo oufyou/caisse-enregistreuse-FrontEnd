@@ -87,6 +87,16 @@ if (roles.includes('ROLE_ADMIN')) {
     "label": "Historique des paiements",
     "icon": "DashboardTwoToneIcon",
     "to": "/Payments"
+  },
+    {
+    "label": "Ticket X",
+    "icon": "DashboardTwoToneIcon",
+    "to": "/TicketX"
+  },
+    {
+    "label": "Ticket Z",
+    "icon": "DashboardTwoToneIcon",
+    "to": "/TicketZ"
   }
 ]`;
 } else if (roles.includes('ROLE_CASHIER')) {

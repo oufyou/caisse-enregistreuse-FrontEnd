@@ -63,6 +63,11 @@ class AuthenticationService {
     if (user === null) return '';
     return user;
   }
+  getLoggedInUserId() {
+    let user = sessionStorage.getItem('user');
+    if (user === null) return '';
+    return JSON.parse(user).id;
+  }
   getLoggedInRoles() {
     if (sessionStorage.getItem('user')) {
       return JSON.parse(sessionStorage.getItem('user')).roles;
