@@ -9893,6 +9893,11 @@ quick-lru@^4.0.1:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-4.0.1.tgz#5b8878f113a58217848c6482026c73e1ba57727f"
   integrity sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==
 
+qz-tray@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/qz-tray/-/qz-tray-2.1.2.tgz#988d523ed82f9d9b14071d82aa9e86a83560b5a4"
+  integrity sha512-ECUA+5eNw7V3PbRTVQivTWcfLV/J7qO8ty4hzFflfXE/1uolCMCHNw+7ojjG4FDxdqbAAt7ZAsEmpjYgVOPaRw==
+
 raf-schd@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/raf-schd/-/raf-schd-4.0.2.tgz#bd44c708188f2e84c810bf55fcea9231bcaed8a0"
