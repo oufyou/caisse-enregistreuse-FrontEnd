@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { API_URL } from './consts';
 
-const API_URL = 'http://localhost:8080/api';
 /*
  * sessionPOS_State False z3ma rahna fwest session
  *

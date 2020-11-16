@@ -15,6 +15,7 @@ import FormControl from '@material-ui/core/FormControl';
 import SalesService from '../../service/SalesService';
 import PaymentsService from '../../service/PaymentsService';
 import { useHistory } from 'react-router';
+import { PRINTING_SERVER } from '../../service/consts';
 
 export default function Pay() {
   const history = useHistory();
@@ -92,12 +93,20 @@ export default function Pay() {
         const qz = require('qz-tray');
 
         qz.websocket
-          .connect()
+          .connect({ host: PRINTING_SERVER })
           .then(() => {
             return qz.printers.find();
           })
           .then(printers => {
             console.log(printers);
+            return qz.print(qz.configs.create('PDF'), [
+              {
+                type: 'pixel',
+                format: 'html',
+                flavor: 'plain',
+                data: '<h1>Hello JavaScript!</h1>'
+              }
+            ]);
             let config = qz.configs.create('TSP');
 
             let data = [

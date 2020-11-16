@@ -1,7 +1,6 @@
 import axios from 'axios';
 import AuthenticationService from './AuthenticationService';
-
-const API_URL = 'http://localhost:8080/api';
+import { API_URL } from './consts';
 
 class TicketService {
   getTicketZJour(date) {

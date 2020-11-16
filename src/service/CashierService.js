@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-
-const API_URL = 'http://localhost:8080/api';
+import { API_URL } from './consts';
 
 class CashierService {
   getCashiers() {
