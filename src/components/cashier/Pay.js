@@ -15,7 +15,12 @@ import FormControl from '@material-ui/core/FormControl';
 import SalesService from '../../service/SalesService';
 import PaymentsService from '../../service/PaymentsService';
 import { useHistory } from 'react-router';
-import { PRINTING_SERVER } from '../../service/consts';
+import {
+  PRINTING_SERVER,
+  TXT_2WIDTH,
+  TXT_ALIGN_LT,
+  TXT_FONT_A
+} from '../../service/consts';
 import projectLogo from '../../assets/images/logo_lilly.png';
 
 export default function Pay() {
@@ -115,6 +120,7 @@ export default function Pay() {
                 options: { language: 'ESCPOS', dotDensity: 'double' }
               },
               '\x1B' + '\x40', // init
+              '\x1b' + '\x74' + '\x02',
               '\x1B' + '\x61' + '\x31', // center align
               'Lilly Gourmet, Rabat' + '\x0A',
               '\x0A', // line break
@@ -141,8 +147,8 @@ export default function Pay() {
               '\x0A',
               '\x0A',
               '\x1B' + '\x61' + '\x30', // left align
-              response.data.sale.saleLines.map(
-                item =>
+              ...response.data.sale.saleLines.map(item => {
+                return (
                   '' +
                   item.product.nom +
                   ' (Qty ' +
@@ -151,12 +157,9 @@ export default function Pay() {
                   item.product.pu.toFixed(2) +
                   ' DH         ' +
                   (item.product.pu * item.quantity).toFixed(2) +
-                  ' DH' +
-                  '\x1B' +
-                  '\x74' +
-                  '\x13' +
-                  '\xAA'
-              ), //print special char symbol after numeric
+                  ' DH'
+                );
+              }), //print special char symbol after numeric
               '\x0A',
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'Montant :      ' +
@@ -178,19 +181,19 @@ export default function Pay() {
               '\x1B' + '\x45' + '\x0A', // bold off
               '\x0A' + '\x0A',
               '\x1B' + '\x61' + '\x32', // right align
-              '\x1B' + '\x21' + '\x30', // em mode on
+              TXT_2WIDTH,
               'Lilly Gourmet vous remercie pour votre visite.',
-              '\x1B' + '\x21' + '\x0A' + '\x1B' + '\x45' + '\x0A', // em mode off
+              TXT_FONT_A,
               '\x0A' + '\x0A',
               '\x1B' + '\x61' + '\x30', // left align
               '------------------------------------------' + '\x0A',
               '\x1B' + '\x4D' + '\x31', // small text
               'Pour nous contacter : +212 555 685 658' + '\x0A',
               'Ou commander sur notre site web : www.lillygourmet.com' + '\x0A',
-              '\x1B' + '\x4D' + '\x30', // normal text
+              TXT_FONT_A,
               '------------------------------------------' + '\x0A',
               'A bientôt.',
-              '\x1B' + '\x61' + '\x30', // left align
+              TXT_ALIGN_LT,
               '\x0A' + '\x0A' + '\x0A' + '\x0A' + '\x0A' + '\x0A' + '\x0A',
               '\x1B' + '\x69', // cut paper (old syntax)
               // '\x1D' + '\x56'  + '\x00' // full cut (new syntax)
