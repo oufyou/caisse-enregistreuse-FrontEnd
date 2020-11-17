@@ -17,7 +17,6 @@ import PaymentsService from '../../service/PaymentsService';
 import { useHistory } from 'react-router';
 import {
   PRINTING_SERVER,
-  TXT_ALIGN_CT,
   TXT_ALIGN_LT,
   TXT_ALIGN_RT,
   TXT_BOLD_OFF,
@@ -113,7 +112,25 @@ export default function Pay() {
           })
           .then(printers => {
             console.log(printers);
-            const date = new Date(response.data.datetime).toLocaleString();
+            const date = new Date().toLocaleString().toString();
+            let productsArr = [];
+            response.data.sale.saleLines.map(item => {
+              productsArr.push(item.product.nom);
+              productsArr.push(' >> ');
+              productsArr.push('\x0A');
+              productsArr.push(
+                '            ' +
+                  item.quantity +
+                  ' X ' +
+                  item.product.pu.toFixed(2) +
+                  ' DH       '
+              );
+              productsArr.push(TXT_ALIGN_RT);
+              productsArr.push(
+                (item.product.pu * item.quantity).toFixed(2) + ' DH'
+              );
+              productsArr.push('\x0A');
+            });
             let config = qz.configs.create('TSP');
             let data = [
               {
@@ -124,14 +141,15 @@ export default function Pay() {
                 options: { language: 'ESCPOS', dotDensity: 'double' }
               },
               '\x1B' + '\x40', // init
-              '\x1b' + '\x74' + '\x02',
+              '\x1B' + '\x74' + '\x10',
               '\x1B' + '\x61' + '\x31', // center align
               'Lilly Gourmet, Rabat' + '\x0A',
               '\x0A', // line break
               'www.lillygourmet.com' + '\x0A', // text and line break
               '+212 555 685 658' + '\x0A', // text and line break
               '\x0A', // line break
-              +date + ' ' + '\x0A',
+              date,
+              ' ' + '\x0A',
               '\x0A', // line break
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'Client:   ' +
@@ -142,7 +160,6 @@ export default function Pay() {
               'Caissier:   ' + response.data.sale.caissier.firstName + '\x0A',
               'Type de payment:   ' + response.data.type + '\x0A',
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
-
               'Transaction # ' +
                 response.data.id +
                 '   pour la vente: ' +
@@ -152,31 +169,13 @@ export default function Pay() {
               '\x0A',
               TXT_BOLD_ON,
               TXT_ALIGN_LT,
-              'Designation(QTE)',
-              TXT_ALIGN_CT,
-              'PU',
-              TXT_ALIGN_RT,
-              'MNT',
+              'Designation QTE   PU           MNT ',
               TXT_BOLD_OFF,
-              TXT_NORMAL,
-              ...response.data.sale.saleLines.map(item => {
-                return (
-                  '' +
-                  TXT_ALIGN_LT +
-                  item.product.nom +
-                  ' (Qty ' +
-                  item.quantity +
-                  ') ' +
-                  TXT_ALIGN_CT +
-                  item.product.pu.toFixed(2) +
-                  ' DH ' +
-                  TXT_ALIGN_RT +
-                  (item.product.pu * item.quantity).toFixed(2) +
-                  ' DH' +
-                  '\x0A'
-                );
-              }), //print special char symbol after numeric
               '\x0A',
+              TXT_NORMAL,
+              ...productsArr, //print special char symbol after numeric
+              '\x0A',
+              TXT_NORMAL,
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'Montant :      ' +
                 response.data.montant.toFixed(2) +
@@ -190,6 +189,8 @@ export default function Pay() {
               response.data.rendre < 0
                 ? ' ( PAYMENT NON COMPLET )'
                 : '' + '\x0A',
+              '\x0A',
+
               'Total :      ' +
                 (response.data.montant - response.data.rendre).toFixed(2) +
                 ' DH' +
@@ -198,7 +199,9 @@ export default function Pay() {
               '\x0A' + '\x0A',
               '\x1B' + '\x61' + '\x32', // right align
               TXT_FONT_A,
-              'Lilly Gourmet vous remercie pour votre visite.',
+              'Lilly Gourmet vous remercie ',
+              '\x0A',
+              ' pour votre visite.',
               TXT_NORMAL,
               '\x0A' + '\x0A',
               '\x1B' + '\x61' + '\x30', // left align
