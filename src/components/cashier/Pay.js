@@ -121,9 +121,7 @@ export default function Pay() {
               'www.lillygourmet.com' + '\x0A', // text and line break
               '+212 555 685 658' + '\x0A', // text and line break
               '\x0A', // line break
-              '\x0A', // line break
               +new Date(response.data.datetime).toLocaleString() + '\x0A',
-              '\x0A', // line break
               '\x0A', // line break
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'Client:   ' +
@@ -135,13 +133,11 @@ export default function Pay() {
               'Type de payment:   ' + response.data.type + '\x0A',
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
 
-              '\x0A',
               'Transaction # ' +
                 response.data.id +
                 '   pour la vente: ' +
                 response.data.sale.id +
                 '\x0A',
-              '\x0A',
               '\x0A',
               '\x0A',
               '\x1B' + '\x61' + '\x30', // left align
