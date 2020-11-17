@@ -17,9 +17,13 @@ import PaymentsService from '../../service/PaymentsService';
 import { useHistory } from 'react-router';
 import {
   PRINTING_SERVER,
-  TXT_2WIDTH,
+  TXT_ALIGN_CT,
   TXT_ALIGN_LT,
-  TXT_FONT_A
+  TXT_ALIGN_RT,
+  TXT_BOLD_OFF,
+  TXT_BOLD_ON,
+  TXT_FONT_A,
+  TXT_NORMAL
 } from '../../service/consts';
 import projectLogo from '../../assets/images/logo_lilly.png';
 
@@ -109,7 +113,7 @@ export default function Pay() {
           })
           .then(printers => {
             console.log(printers);
-
+            const date = new Date(response.data.datetime).toLocaleString();
             let config = qz.configs.create('TSP');
             let data = [
               {
@@ -127,7 +131,7 @@ export default function Pay() {
               'www.lillygourmet.com' + '\x0A', // text and line break
               '+212 555 685 658' + '\x0A', // text and line break
               '\x0A', // line break
-              +new Date(response.data.datetime).toLocaleString() + '\x0A',
+              +date + ' ' + '\x0A',
               '\x0A', // line break
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'Client:   ' +
@@ -146,18 +150,30 @@ export default function Pay() {
                 '\x0A',
               '\x0A',
               '\x0A',
-              '\x1B' + '\x61' + '\x30', // left align
+              TXT_BOLD_ON,
+              TXT_ALIGN_LT,
+              'Designation(QTE)',
+              TXT_ALIGN_CT,
+              'PU',
+              TXT_ALIGN_RT,
+              'MNT',
+              TXT_BOLD_OFF,
+              TXT_NORMAL,
               ...response.data.sale.saleLines.map(item => {
                 return (
                   '' +
+                  TXT_ALIGN_LT +
                   item.product.nom +
                   ' (Qty ' +
                   item.quantity +
-                  ')       ' +
+                  ') ' +
+                  TXT_ALIGN_CT +
                   item.product.pu.toFixed(2) +
-                  ' DH         ' +
+                  ' DH ' +
+                  TXT_ALIGN_RT +
                   (item.product.pu * item.quantity).toFixed(2) +
-                  ' DH'
+                  ' DH' +
+                  '\x0A'
                 );
               }), //print special char symbol after numeric
               '\x0A',
@@ -170,7 +186,7 @@ export default function Pay() {
                 response.data.rendre.toFixed(2) +
                 ' DH' +
                 '\x0A',
-              '\x1B' + '\x45' + '\x0D', // bold on
+              TXT_BOLD_ON,
               response.data.rendre < 0
                 ? ' ( PAYMENT NON COMPLET )'
                 : '' + '\x0A',
@@ -178,12 +194,12 @@ export default function Pay() {
                 (response.data.montant - response.data.rendre).toFixed(2) +
                 ' DH' +
                 '\x0A',
-              '\x1B' + '\x45' + '\x0A', // bold off
+              TXT_BOLD_OFF,
               '\x0A' + '\x0A',
               '\x1B' + '\x61' + '\x32', // right align
-              TXT_2WIDTH,
-              'Lilly Gourmet vous remercie pour votre visite.',
               TXT_FONT_A,
+              'Lilly Gourmet vous remercie pour votre visite.',
+              TXT_NORMAL,
               '\x0A' + '\x0A',
               '\x1B' + '\x61' + '\x30', // left align
               '------------------------------------------' + '\x0A',
