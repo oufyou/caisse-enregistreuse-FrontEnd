@@ -171,6 +171,7 @@ export default function Pay() {
               TXT_ALIGN_LT,
               'Designation QTE   PU           MNT ',
               TXT_BOLD_OFF,
+              '\x0A',
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               '\x0A',
               TXT_NORMAL,
