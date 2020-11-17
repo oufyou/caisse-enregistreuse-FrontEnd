@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const API_URL = 'http://192.168.1.8:8080/api';
+import { API_URL } from './consts';
 
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser';
 export const ROLE_SESSION_ATTRIBUTE_NAME = 'role';

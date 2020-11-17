@@ -16,6 +16,7 @@ import SalesService from '../../service/SalesService';
 import PaymentsService from '../../service/PaymentsService';
 import { useHistory } from 'react-router';
 import { PRINTING_SERVER } from '../../service/consts';
+import projectLogo from '../../assets/images/logo_lilly.png';
 
 export default function Pay() {
   const history = useHistory();
@@ -51,6 +52,10 @@ export default function Pay() {
    *       "comment":null,
    *       "sale_id":"7"
    *     }
+   *
+   *
+   *
+   *
    * */
   const cartItems = JSON.parse(sessionStorage.getItem('cart'));
   const saleLines = [];
@@ -91,7 +96,7 @@ export default function Pay() {
       .then(response => {
         history.push('/DashboardDefault');
         const qz = require('qz-tray');
-
+        console.log(response);
         qz.websocket
           .connect({ host: PRINTING_SERVER })
           .then(() => {
@@ -99,59 +104,91 @@ export default function Pay() {
           })
           .then(printers => {
             console.log(printers);
-            return qz.print(qz.configs.create('PDF'), [
-              {
-                type: 'pixel',
-                format: 'html',
-                flavor: 'plain',
-                data: '<h1>Hello JavaScript!</h1>'
-              }
-            ]);
-            let config = qz.configs.create('TSP');
 
+            let config = qz.configs.create('TSP');
             let data = [
               {
                 type: 'raw',
                 format: 'image',
                 flavor: 'file',
-                data: 'assets/images/logo_lilly.png',
+                data: projectLogo,
                 options: { language: 'ESCPOS', dotDensity: 'double' }
               },
               '\x1B' + '\x40', // init
               '\x1B' + '\x61' + '\x31', // center align
-              'Beverly Hills, CA  90210' + '\x0A',
+              'Lilly Gourmet, Rabat' + '\x0A',
               '\x0A', // line break
-              'www.qz.io' + '\x0A', // text and line break
-              '\x0A', // line break
-              '\x0A', // line break
-              'May 18, 2016 10:30 AM' + '\x0A',
+              'www.lillygourmet.com' + '\x0A', // text and line break
+              '+212 555 685 658' + '\x0A', // text and line break
               '\x0A', // line break
               '\x0A', // line break
+              +new Date(response.data.datetime).toLocaleString() + '\x0A',
+              '\x0A', // line break
+              '\x0A', // line break
+              'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
+              'Client:   ' +
+                response.data.sale.customer.firstName +
+                ' ' +
+                response.data.sale.customer.lastName +
+                '\x0A',
+              'Caissier:   ' + response.data.sale.caissier.firstName + '\x0A',
+              'Type de payment:   ' + response.data.type + '\x0A',
+              'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
+
               '\x0A',
-              'Transaction # 123456 Register: 3' + '\x0A',
+              'Transaction # ' +
+                response.data.id +
+                '   pour la vente: ' +
+                response.data.sale.id +
+                '\x0A',
               '\x0A',
               '\x0A',
               '\x0A',
               '\x1B' + '\x61' + '\x30', // left align
-              'Baklava (Qty 4)       9.00' + '\x1B' + '\x74' + '\x13' + '\xAA', //print special char symbol after numeric
+              response.data.sale.saleLines.map(
+                item =>
+                  '' +
+                  item.product.nom +
+                  ' (Qty ' +
+                  item.quantity +
+                  ')       ' +
+                  item.product.pu +
+                  ' DH         ' +
+                  item.product.pu * item.quantity +
+                  ' DH' +
+                  '\x1B' +
+                  '\x74' +
+                  '\x13' +
+                  '\xAA'
+              ), //print special char symbol after numeric
               '\x0A',
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
+              'Montant :      ' + response.data.montant + ' DH' + '\x0A',
+              'Rendre :       ' + response.data.rendre + ' DH' + '\x0A',
               '\x1B' + '\x45' + '\x0D', // bold on
-              "Here's some bold text!",
+              response.data.rendre < 0
+                ? ' ( PAYMENT NON COMPLET )'
+                : '' + '\x0A',
+              'Total :      ' +
+                response.data.montant -
+                response.data.rendre +
+                ' DH' +
+                '\x0A',
               '\x1B' + '\x45' + '\x0A', // bold off
               '\x0A' + '\x0A',
               '\x1B' + '\x61' + '\x32', // right align
               '\x1B' + '\x21' + '\x30', // em mode on
-              'DRINK ME',
+              'Lilly Gourmet vous remercie pour votre visite.',
               '\x1B' + '\x21' + '\x0A' + '\x1B' + '\x45' + '\x0A', // em mode off
               '\x0A' + '\x0A',
               '\x1B' + '\x61' + '\x30', // left align
               '------------------------------------------' + '\x0A',
               '\x1B' + '\x4D' + '\x31', // small text
-              'EAT ME' + '\x0A',
+              'Pour nous contacter : +212 555 685 658' + '\x0A',
+              'Ou commander sur notre site web : www.lillygourmet.com' + '\x0A',
               '\x1B' + '\x4D' + '\x30', // normal text
               '------------------------------------------' + '\x0A',
-              'normal text',
+              'A bientôt.',
               '\x1B' + '\x61' + '\x30', // left align
               '\x0A' + '\x0A' + '\x0A' + '\x0A' + '\x0A' + '\x0A' + '\x0A',
               '\x1B' + '\x69', // cut paper (old syntax)
