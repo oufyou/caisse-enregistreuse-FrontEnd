@@ -163,15 +163,20 @@ export default function Pay() {
               ), //print special char symbol after numeric
               '\x0A',
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
-              'Montant :      ' + response.data.montant.toFixed(2) + ' DH' + '\x0A',
-              'Rendre :       ' + response.data.rendre.toFixed(2) + ' DH' + '\x0A',
+              'Montant :      ' +
+                response.data.montant.toFixed(2) +
+                ' DH' +
+                '\x0A',
+              'Rendre :       ' +
+                response.data.rendre.toFixed(2) +
+                ' DH' +
+                '\x0A',
               '\x1B' + '\x45' + '\x0D', // bold on
               response.data.rendre < 0
                 ? ' ( PAYMENT NON COMPLET )'
                 : '' + '\x0A',
               'Total :      ' +
-              (response.data.montant -
-                response.data.rendre).toFixed(2) +
+                (response.data.montant - response.data.rendre).toFixed(2) +
                 ' DH' +
                 '\x0A',
               '\x1B' + '\x45' + '\x0A', // bold off
