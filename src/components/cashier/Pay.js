@@ -14,17 +14,14 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import SalesService from '../../service/SalesService';
 import PaymentsService from '../../service/PaymentsService';
+import BWLogo from '../../assets/images/lily-BW.jpg';
 import { useHistory } from 'react-router';
 import {
   PRINTING_SERVER,
   TXT_ALIGN_LT,
   TXT_ALIGN_RT,
-  TXT_BOLD_OFF,
-  TXT_BOLD_ON,
-  TXT_FONT_A,
-  TXT_NORMAL
+  TXT_FONT_A
 } from '../../service/consts';
-import projectLogo from '../../assets/images/logo_lilly.png';
 
 export default function Pay() {
   const history = useHistory();
@@ -33,6 +30,7 @@ export default function Pay() {
   const [customerId, setCustomerId] = useState(0);
   const [typePaiement, setTypePaiement] = useState('');
   const [montant, setMontant] = useState(0);
+  const [supplement, setSupplement] = useState(0);
   const [commentaire, setCommentaire] = useState('');
   const [showAddCustomer, setShowAddCustomer] = useState(false);
 
@@ -47,7 +45,8 @@ export default function Pay() {
    *        {"product_id":"4","quantity":"20"}],
    * "total":"80",
    * "finished":"true",
-   * "comment":null
+   * "comment":null,
+   *  "Supplement":"0"
    * }
    *
    *
@@ -67,19 +66,21 @@ export default function Pay() {
    * */
   const cartItems = JSON.parse(sessionStorage.getItem('cart'));
   const saleLines = [];
-  cartItems.map(item => {
-    saleLines.push({ product_id: item.productId, quantity: item.quantity });
-  });
+  let totalPrice = 0;
+  if (cartItems === null) history.push('/DashboardDefault');
+  else {
+    cartItems.map(item => {
+      saleLines.push({ product_id: item.productId, quantity: item.quantity });
+    });
+    cartItems.map(item => {
+      totalPrice += Number(item.pu * item.quantity);
+    });
+  }
   useEffect(() => {
     CustomersService.getCustomers().then(response =>
       setCustomers(response.data)
     );
   }, []);
-  let totalPrice = 0;
-  cartItems.map(item => {
-    totalPrice += Number(item.pu * item.quantity);
-  });
-
   const onSubmit = () => {
     const sale = {
       customer_id: customerId.id,
@@ -87,7 +88,8 @@ export default function Pay() {
       saleLines: saleLines,
       total: totalPrice,
       finished: montant - totalPrice >= 0, // l'etat selon la difference entre le montant est total; s
-      comment: commentaire.length > 0 ? commentaire : null
+      comment: commentaire.length > 0 ? commentaire : null,
+      Supplement: supplement | 0
     };
     SalesService.createSale(sale)
       .then(response => {
@@ -131,23 +133,36 @@ export default function Pay() {
               );
               productsArr.push('\x0A');
             });
-            let config = qz.configs.create('TSP');
+            let config = qz.configs.create(
+              { name: 'TSP' },
+              { language: 'ESCPOS' }
+            );
             let data = [
               {
                 type: 'raw',
                 format: 'image',
                 flavor: 'file',
-                data: projectLogo,
+                data: BWLogo,
                 options: { language: 'ESCPOS', dotDensity: 'double' }
               },
+
               '\x1B' + '\x40', // init
-              '\x1B' + '\x74' + '\x10',
               '\x1B' + '\x61' + '\x31', // center align
-              'Lilly Gourmet, Rabat' + '\x0A',
+              '\x1B' + '\x74' + '\x10',
+              '\x1B' + '\x45' + '\x0D', // bold on
+
+              'Lily Gourmet, ' + '\x0A',
+              '\x1B' + '\x45' + '\x0A', // bold off
+              'Lily Gourmet, 6 rue Soumaya, Agdal, Rabat' + '\x0A',
+              '\x0A',
+              'I.F 3367629      N.P 70185234' + '\x0A',
+              'R.C 99941      CNSS 9725039' + '\x0A',
+              'ICE 001701634000029      CNSS 9725039' + '\x0A',
               '\x0A', // line break
-              'www.lillygourmet.com' + '\x0A', // text and line break
-              '+212 555 685 658' + '\x0A', // text and line break
+              'www.lily-gourmet.com' + '\x0A', // text and line break
+              '+212 537 653 182' + '\x0A', // text and line break
               '\x0A', // line break
+              'Ticket N° ' + response.data.sale.id + ' --- ',
               date,
               ' ' + '\x0A',
               '\x0A', // line break
@@ -167,27 +182,29 @@ export default function Pay() {
                 '\x0A',
               '\x0A',
               '\x0A',
-              TXT_BOLD_ON,
-              TXT_ALIGN_LT,
+              '\x1B' + '\x45' + '\x0D', // bold on
+              '\x1B' + '\x61' + '\x30', // left align
               'Designation QTE   PU           MNT ',
-              TXT_BOLD_OFF,
+              '\x1B' + '\x45' + '\x0A', // bold off
               '\x0A',
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               '\x0A',
-              TXT_NORMAL,
+              '\x1B' + '\x4D' + '\x30', // normal text
               ...productsArr, //print special char symbol after numeric
               '\x0A',
-              TXT_NORMAL,
+              '\x1B' + '\x4D' + '\x30', // normal text
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
-              'Montant :      ' +
-                response.data.montant.toFixed(2) +
+              'Total :      ' +
+                (response.data.montant - response.data.rendre).toFixed(2) +
                 ' DH' +
                 '\x0A',
+              response.data.type + ' : ' + response.data.montant + ' DH',
+              '\x0A',
               'Rendre :       ' +
                 response.data.rendre.toFixed(2) +
                 ' DH' +
                 '\x0A',
-              TXT_BOLD_ON,
+              '\x1B' + '\x45' + '\x0D', // bold on
               response.data.rendre < 0
                 ? ' ( PAYMENT NON COMPLET )'
                 : '' + '\x0A',
@@ -197,31 +214,31 @@ export default function Pay() {
                 (response.data.montant - response.data.rendre).toFixed(2) +
                 ' DH' +
                 '\x0A',
-              TXT_BOLD_OFF,
+              '\x1B' + '\x45' + '\x0A', // bold off
               '\x0A' + '\x0A',
               '\x1B' + '\x61' + '\x32', // right align
-              TXT_FONT_A,
-              'Lilly Gourmet vous remercie ',
+              '\x1B' + '\x4D' + '\x31', // small text
+              'Lily Gourmet vous remercie ',
               '\x0A',
               ' pour votre visite.',
-              TXT_NORMAL,
+              '\x1B' + '\x4D' + '\x30', // normal text
               '\x0A' + '\x0A',
               '\x1B' + '\x61' + '\x30', // left align
               '------------------------------------------' + '\x0A',
               '\x1B' + '\x4D' + '\x31', // small text
-              'Pour nous contacter : +212 555 685 658' + '\x0A',
-              'Ou commander sur notre site web : www.lillygourmet.com' + '\x0A',
+              'Pour nous contacter : +212 537 653 182' + '\x0A',
+              'Ou commander sur notre site web : www.lily-gourmet.com' + '\x0A',
               TXT_FONT_A,
               '------------------------------------------' + '\x0A',
               'A bientôt.',
               TXT_ALIGN_LT,
               '\x0A' + '\x0A' + '\x0A' + '\x0A' + '\x0A' + '\x0A' + '\x0A',
-              '\x1B' + '\x69', // cut paper (old syntax)
+              '\x1B' + '\x69' // cut paper (old syntax)
               // '\x1D' + '\x56'  + '\x00' // full cut (new syntax)
               // '\x1D' + '\x56'  + '\x30' // full cut (new syntax)
               // '\x1D' + '\x56'  + '\x01' // partial cut (new syntax)
               // '\x1D' + '\x56'  + '\x31' // partial cut (new syntax)
-              '\x10' + '\x14' + '\x01' + '\x00' + '\x05' // Generate Pulse to kick-out cash drawer**
+              //'\x10' + '\x14' + '\x01' + '\x00' + '\x05' // Generate Pulse to kick-out cash drawer**
               // **for legacy drawer cable CD-005A.  Research before using.
             ];
             return qz.print(config, data);
@@ -283,7 +300,7 @@ export default function Pay() {
               </div>
             </div>
 
-            {cartItems.map(item => (
+            {cartItems?.map(item => (
               <div className="d-flex align-items-center justify-content-between">
                 <div className="d-flex">
                   <div>
@@ -429,10 +446,11 @@ export default function Pay() {
             style={{ height: '4em', margin: 20 }}
             variant="outlined"
             value={montant}
-            onChange={e => setMontant(Number.parseInt(e.target.value))}
+            onChange={e => setMontant(Number.parseInt(e.target.value) | 0)}
             label="Montant"
           />
         </Grid>
+
         <Grid md={4} xs={12} style={{ marginLeft: 20 }}>
           {montant - totalPrice >= 0 ? (
             <Typography variant="h3" style={{ color: '#488E48', margin: 20 }}>
@@ -459,6 +477,22 @@ export default function Pay() {
             onChange={e => setCommentaire(e.target.value)}
             label="Commentaire"
           />
+        </Grid>
+        <Grid container alignContent="center" alignItems="center">
+          <Grid md={2} xs={12}>
+            <Typography variant="h3">Montant supplementaire</Typography>
+          </Grid>
+          <Grid md={5} xs={12}>
+            <TextField
+              fullWidth
+              native
+              style={{ height: '4em', margin: 20 }}
+              variant="outlined"
+              value={supplement}
+              onChange={e => setSupplement(Number.parseInt(e.target.value) | 0)}
+              label="Montant supplementaire"
+            />
+          </Grid>
         </Grid>
       </Grid>
 

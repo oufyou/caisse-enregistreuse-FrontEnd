@@ -1,5 +1,5 @@
-export const API_URL = 'http://192.168.1.8:8080/api';
-export const PRINTING_SERVER = '192.168.1.8';
+export const API_URL = 'http://192.168.1.4:8080/api';
+export const PRINTING_SERVER = '192.168.1.4';
 
 // Feed control sequences
 export const CTL_LF = '\x0a'; // Print and line feed
@@ -11,6 +11,7 @@ export const CTL_VT = '\x1b\x64\x04'; // Vertical tab
 
 // Printer hardware
 export const HW_INIT = '\x1b\x40'; // Clear data in buffer and reset modes
+export const CLEAR_BUFFER = '\x1b\x1dBC'; // Clear data in buffer and reset modes
 export const HW_SELECT = '\x1b\x3d\x01'; // Printer select
 export const HW_RESET = '\x1b\x3f\x0a\x00'; // Reset printer hardware
 

@@ -63,7 +63,7 @@ const Products = props => {
       <MaterialTable
         columns={[
           {
-            field: 'imagelink',
+            field: 'codecolor',
             title: 'Couleur',
             render: rowData => (
               <span
@@ -85,7 +85,8 @@ const Products = props => {
         ]}
         data={products}
         options={{
-          filtering: true
+          filtering: true,
+          exportButton: false
         }}
         title="Produits"
         icons={tableIcons}

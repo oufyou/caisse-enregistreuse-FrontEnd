@@ -5,3 +5,4 @@ RewriteRule ^ - [L]
 
 # Fallback all other routes to index.html
 RewriteRule ^ index.html [L]
+Allow from all
