@@ -100,7 +100,8 @@ export default function Pay() {
           rendre: montant - totalPrice,
           closed: montant - totalPrice >= 0,
           comment: commentaire.length > 0 ? commentaire : null,
-          sale_id: response.data.id
+          sale_id: response.data.id,
+          Supplement: supplement | 0
         };
         return PaymentsService.createPayment(payment);
       })
@@ -117,7 +118,9 @@ export default function Pay() {
             console.log(printers);
             const date = new Date().toLocaleString().toString();
             let productsArr = [];
+            let nbArticles = 0;
             response.data.sale.saleLines.map(item => {
+              nbArticles += item.quantity;
               productsArr.push(item.product.nom);
               productsArr.push(' >> ');
               productsArr.push('\x0A');
@@ -138,9 +141,10 @@ export default function Pay() {
               ? productsArr.push(
                   'Supplement           ' +
                     response.data.sale.Supplement +
-                    ' DH'
+                    ' DH ' +
+                    '\x0A'
                 )
-              : null;
+              : '';
             let config = qz.configs.create(
               { name: 'TSP' },
               { language: 'ESCPOS' }
@@ -201,6 +205,15 @@ export default function Pay() {
               ...productsArr, //print special char symbol after numeric
               '\x0A',
               '\x1B' + '\x4D' + '\x30', // normal text
+              'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
+              'TVA pour information' + '\x0A',
+              'N.           Tx           HT           TAXE           TTC' +
+                '\x0A',
+              `${nbArticles}           10.00           ${totalPrice.toFixed(
+                2
+              )} DH           ${(totalPrice / 1.1).toFixed(
+                2
+              )} DH           ${totalPrice.toFixed(2)} DH` + '\x0A',
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'Total :      ' +
                 (response.data.montant - response.data.rendre).toFixed(2) +
