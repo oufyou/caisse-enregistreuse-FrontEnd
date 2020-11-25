@@ -17,6 +17,7 @@ import PaymentsService from '../../service/PaymentsService';
 import BWLogo from '../../assets/images/lily-BW.jpg';
 import { useHistory } from 'react-router';
 import {
+  anonymUserId,
   PRINTING_SERVER,
   TXT_ALIGN_LT,
   TXT_ALIGN_RT,
@@ -133,6 +134,13 @@ export default function Pay() {
               );
               productsArr.push('\x0A');
             });
+            response.data.sale.Supplement > 0
+              ? productsArr.push(
+                  'Supplement           ' +
+                    response.data.sale.Supplement +
+                    ' DH'
+                )
+              : null;
             let config = qz.configs.create(
               { name: 'TSP' },
               { language: 'ESCPOS' }
@@ -355,6 +363,7 @@ export default function Pay() {
                   fullWidth
                   name="Customer"
                   key={option.id}
+                  defaultValue={anonymUserId}
                   value={option.id}>
                   {option.firstName +
                     ' ' +
