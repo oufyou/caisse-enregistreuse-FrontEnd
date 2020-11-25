@@ -69,6 +69,11 @@ if (roles.includes('ROLE_ADMIN')) {
   }
   ,
       {
+    "label": "Gestion des utilisateurs",
+    "icon": "DashboardTwoToneIcon",
+    "to": "/Users"
+  },
+      {
     "label": "Gestion des clients",
     "icon": "DashboardTwoToneIcon",
     "to": "/Customers"

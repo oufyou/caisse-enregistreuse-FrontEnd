@@ -47,7 +47,7 @@ const Categories = props => {
           onRowUpdateCancelled: rowData => console.log('Row editing cancelled'),
 
           onRowUpdate: (newData, oldData) => {
-            return CategoriesService.updateCategory(oldData).then(response => {
+            return CategoriesService.updateCategory(newData).then(response => {
               return CategoriesService.getCategories().then(response =>
                 setCategories(response.data)
               );

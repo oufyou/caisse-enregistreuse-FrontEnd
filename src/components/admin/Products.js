@@ -89,8 +89,8 @@ const Products = props => {
               <TextField
                 id="codecolorNewProduct"
                 name="codecolorNewProduct"
-                value={codecolorNewProduct}
-                onChange={e => setCodecolorNewProduct(e.target.value)}
+                value={props.value === undefined ? '' : props.value}
+                onChange={event => props.onChange(event.target.value)}
                 type="color"
                 fullWidth
               />

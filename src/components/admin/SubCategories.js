@@ -61,7 +61,7 @@ const SubCategories = props => {
           onRowUpdateCancelled: rowData => console.log('Row editing cancelled'),
 
           onRowUpdate: (newData, oldData) => {
-            return SubCategoriesService.updateSubCategory(oldData).then(
+            return SubCategoriesService.updateSubCategory(newData).then(
               response => {
                 return SubCategoriesService.getSubCategories().then(response =>
                   setSubCategories(response.data)

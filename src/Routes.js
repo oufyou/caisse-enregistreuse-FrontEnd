@@ -14,6 +14,7 @@ import { LeftSidebar, PresentationLayout } from './layout-blueprints';
 
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import AuthenticationService from './service/AuthenticationService';
+import Users from './components/admin/Users';
 
 const DashboardDefault = lazy(() => import('./components/cashier/Dashboard'));
 const LandingPage = lazy(() => import('./example-pages/LandingPage'));
@@ -97,7 +98,8 @@ const Routes = () => {
                 '/SessionPOS',
                 '/SessionPOSClose',
                 '/TicketZ',
-                '/TicketX'
+                '/TicketX',
+                '/Users'
               ]}>
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
@@ -115,6 +117,7 @@ const Routes = () => {
                       path="/SessionPOS"
                       component={SessionPOS}
                     />
+                    <AuthenticatedRoute path="/Users" component={Users} />
                     <AuthenticatedRoute path="/TicketZ" component={TicketZ} />
                     <AuthenticatedRoute path="/TicketX" component={TicketX} />
                     <AuthenticatedRoute
