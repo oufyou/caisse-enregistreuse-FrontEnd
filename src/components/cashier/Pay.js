@@ -23,6 +23,7 @@ import {
   TXT_ALIGN_RT,
   TXT_FONT_A
 } from '../../service/consts';
+import UsersService from '../../service/UsersService';
 
 export default function Pay() {
   const history = useHistory();
@@ -78,6 +79,9 @@ export default function Pay() {
     });
   }
   useEffect(() => {
+    UsersService.getUser(anonymUserId).then(res => {
+      setCustomerId(res.data);
+    });
     CustomersService.getCustomers().then(response =>
       setCustomers(response.data)
     );
@@ -100,8 +104,7 @@ export default function Pay() {
           rendre: montant - totalPrice,
           closed: montant - totalPrice >= 0,
           comment: commentaire.length > 0 ? commentaire : null,
-          sale_id: response.data.id,
-          Supplement: supplement | 0
+          sale_id: response.data.id
         };
         return PaymentsService.createPayment(payment);
       })
@@ -137,14 +140,14 @@ export default function Pay() {
               );
               productsArr.push('\x0A');
             });
-            response.data.sale.Supplement > 0
-              ? productsArr.push(
-                  'Supplement           ' +
-                    response.data.sale.Supplement +
-                    ' DH ' +
-                    '\x0A'
-                )
-              : '';
+            if (response.data.sale.supplement > 0) {
+              productsArr.push(
+                'Supplement           ' +
+                  response.data.sale.supplement +
+                  ' DH ' +
+                  '\x0A'
+              );
+            }
             let config = qz.configs.create(
               { name: 'TSP' },
               { language: 'ESCPOS' }
@@ -207,13 +210,12 @@ export default function Pay() {
               '\x1B' + '\x4D' + '\x30', // normal text
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'TVA pour information' + '\x0A',
-              'N.           Tx           HT           TAXE           TTC' +
-                '\x0A',
-              `${nbArticles}           10.00           ${totalPrice.toFixed(
+              'N.      Tx      HT      TAXE      TTC' + '\x0A',
+              `${nbArticles}      10.00      ${totalPrice.toFixed(
                 2
-              )} DH           ${(totalPrice / 1.1).toFixed(
+              )} DH      ${(totalPrice / 1.1).toFixed(
                 2
-              )} DH           ${totalPrice.toFixed(2)} DH` + '\x0A',
+              )} DH      ${totalPrice.toFixed(2)} DH` + '\x0A',
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'Total :      ' +
                 (response.data.montant - response.data.rendre).toFixed(2) +
@@ -376,7 +378,6 @@ export default function Pay() {
                   fullWidth
                   name="Customer"
                   key={option.id}
-                  defaultValue={anonymUserId}
                   value={option.id}>
                   {option.firstName +
                     ' ' +
@@ -394,6 +395,8 @@ export default function Pay() {
             inputValue={customer}
             onChange={(e, newValue) => {
               setCustomerId(newValue);
+              console.log('customerID');
+              console.log(newValue);
             }}
             onInputChange={(event, newInputValue) => {
               setCustomer(newInputValue);
