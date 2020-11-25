@@ -211,11 +211,11 @@ export default function Pay() {
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'TVA pour information' + '\x0A',
               'N.      Tx      HT      TAXE      TTC' + '\x0A',
-              `${nbArticles}      10.00      ${totalPrice.toFixed(
+              `${nbArticles}      10.00      ${(totalPrice / 1.1).toFixed(
                 2
-              )} DH      ${(totalPrice / 1.1).toFixed(
-                2
-              )} DH      ${totalPrice.toFixed(2)} DH` + '\x0A',
+              )}      ${(totalPrice / 1.1).toFixed(2)}      ${(
+                totalPrice * 0.1
+              ).toFixed(2)}` + '\x0A',
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'Total :      ' +
                 (response.data.montant - response.data.rendre).toFixed(2) +
@@ -223,7 +223,7 @@ export default function Pay() {
                 '\x0A',
               response.data.type + ' : ' + response.data.montant + ' DH',
               '\x0A',
-              'Rendre :       ' +
+              'à rendre :       ' +
                 response.data.rendre.toFixed(2) +
                 ' DH' +
                 '\x0A',
