@@ -5,6 +5,9 @@ class ProductsService {
   getProducts() {
     return axios.get(API_URL + '/Products');
   }
+  updateProduct(product) {
+    return axios.put(API_URL + '/Products', product);
+  }
   getAllBySubCategory(id) {
     return axios.get(API_URL + '/Products/subCategory=' + id);
   }

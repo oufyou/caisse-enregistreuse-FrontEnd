@@ -5,6 +5,9 @@ class SubCategoriesService {
   getSubCategories() {
     return axios.get(API_URL + '/SubCategories');
   }
+  updateSubCategory(subCategory) {
+    return axios.put(API_URL + '/SubCategories', subCategory);
+  }
   getAllByCategory(id) {
     return axios.get(API_URL + '/SubCategories/category=' + id);
   }
@@ -16,7 +19,7 @@ class SubCategoriesService {
       category_id: category
     });
   }
-  removeSubCategorie(id) {
+  removeSubCategory(id) {
     return axios.delete(API_URL + '/SubCategories/' + id);
   }
 }

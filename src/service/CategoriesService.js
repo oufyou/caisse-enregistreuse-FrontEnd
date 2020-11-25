@@ -5,6 +5,9 @@ class CategoriesService {
   getCategories() {
     return axios.get(API_URL + '/Categories');
   }
+  updateCategory(category) {
+    return axios.put(API_URL + '/Categories', category);
+  }
   createCategorie(nom, desc) {
     return axios.post(API_URL + '/Categories', { nom: nom, description: desc });
   }

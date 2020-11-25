@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { useHistory } from 'react-router-dom';
-import { Delete } from '@material-ui/icons';
+
 import CategoriesService from '../../service/CategoriesService';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -56,8 +56,31 @@ const SubCategories = props => {
         Ajouter sous-catégorie
       </Button>
       <MaterialTable
+        editable={{
+          onRowAddCancelled: rowData => console.log('Row adding cancelled'),
+          onRowUpdateCancelled: rowData => console.log('Row editing cancelled'),
+
+          onRowUpdate: (newData, oldData) => {
+            return SubCategoriesService.updateSubCategory(oldData).then(
+              response => {
+                return SubCategoriesService.getSubCategories().then(response =>
+                  setSubCategories(response.data)
+                );
+              }
+            );
+          },
+          onRowDelete: oldData => {
+            return SubCategoriesService.removeSubCategory(oldData.id).then(
+              response => {
+                return SubCategoriesService.getSubCategories().then(response =>
+                  setSubCategories(response.data)
+                );
+              }
+            );
+          }
+        }}
         columns={[
-          {
+          /*{
             field: 'imagelink',
             title: 'Image',
             render: rowData => (
@@ -67,28 +90,19 @@ const SubCategories = props => {
                 alt="image"
               />
             )
-          },
+          },*/
           { title: 'Nom', field: 'nom' },
           { title: 'Description', field: 'description' },
-          { title: 'Catégorie mère', field: 'category.nom' }
+          { title: 'Catégorie mère', field: 'category.nom', editable: 'never' }
         ]}
         data={Subcategories}
         options={{
           filtering: true,
           pageSize: 10,
-          pageSizeOptions: [10],
-          actionsColumnIndex: -1
+          pageSizeOptions: [10]
         }}
         title="Catégories"
         icons={tableIcons}
-        actions={[
-          {
-            icon: () => <Delete />,
-            tooltip: 'supprimer catégorie',
-            onClick: (event, rowData) =>
-              SubCategoriesService.removeSubCategorie(rowData.id)
-          }
-        ]}
       />
       <Dialog
         style={{ padding: '3em' }}

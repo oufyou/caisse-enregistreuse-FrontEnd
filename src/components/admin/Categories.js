@@ -10,7 +10,6 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { useHistory } from 'react-router-dom';
-import { Delete } from '@material-ui/icons';
 
 const Categories = props => {
   let history = useHistory();
@@ -43,8 +42,29 @@ const Categories = props => {
         Ajouter catégorie
       </Button>
       <MaterialTable
+        editable={{
+          onRowAddCancelled: rowData => console.log('Row adding cancelled'),
+          onRowUpdateCancelled: rowData => console.log('Row editing cancelled'),
+
+          onRowUpdate: (newData, oldData) => {
+            return CategoriesService.updateCategory(oldData).then(response => {
+              return CategoriesService.getCategories().then(response =>
+                setCategories(response.data)
+              );
+            });
+          },
+          onRowDelete: oldData => {
+            return CategoriesService.removeCategorie(oldData.id).then(
+              response => {
+                return CategoriesService.getCategories().then(response =>
+                  setCategories(response.data)
+                );
+              }
+            );
+          }
+        }}
         columns={[
-          {
+          /*{
             field: 'imagelink',
             title: 'Image',
             render: rowData => (
@@ -54,7 +74,7 @@ const Categories = props => {
                 alt="image"
               />
             )
-          },
+          },*/
           { title: 'nom', field: 'nom' },
           { title: 'description', field: 'description' }
         ]}
@@ -62,19 +82,10 @@ const Categories = props => {
         options={{
           filtering: true,
           pageSize: 10,
-          pageSizeOptions: [10],
-          actionsColumnIndex: -1
+          pageSizeOptions: [10]
         }}
         title="Catégories"
         icons={tableIcons}
-        actions={[
-          {
-            icon: () => <Delete />,
-            tooltip: 'supprimer catégorie',
-            onClick: (event, rowData) =>
-              CategoriesService.removeCategorie(rowData.id)
-          }
-        ]}
       />
       <Dialog
         style={{ padding: '3em' }}

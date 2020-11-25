@@ -4,7 +4,6 @@ import MaterialTable from 'material-table';
 
 import { Button } from '@material-ui/core';
 import ProductsService from '../../service/ProductsService';
-import { Delete } from '@material-ui/icons';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -46,7 +45,9 @@ const Products = props => {
     setShowAddProduct(false);
   };
   useEffect(() => {
-    ProductsService.getProducts().then(response => setProducts(response.data));
+    ProductsService.getProducts().then(response => {
+      setProducts(response.data);
+    });
     CategoriesService.getCategories().then(response =>
       setCategories(response.data)
     );
@@ -61,10 +62,39 @@ const Products = props => {
         Ajouter produit
       </Button>
       <MaterialTable
+        editable={{
+          onRowAddCancelled: rowData => console.log('Row adding cancelled'),
+          onRowUpdateCancelled: rowData => console.log('Row editing cancelled'),
+
+          onRowUpdate: (newData, oldData) => {
+            return ProductsService.updateProduct(newData).then(response => {
+              return ProductsService.getProducts().then(response => {
+                setProducts(response.data);
+              });
+            });
+          },
+          onRowDelete: oldData => {
+            return ProductsService.removeProduct(oldData.id).then(response => {
+              return ProductsService.getProducts().then(response => {
+                setProducts(response.data);
+              });
+            });
+          }
+        }}
         columns={[
           {
             field: 'codecolor',
             title: 'Couleur',
+            editComponent: props => (
+              <TextField
+                id="codecolorNewProduct"
+                name="codecolorNewProduct"
+                value={codecolorNewProduct}
+                onChange={e => setCodecolorNewProduct(e.target.value)}
+                type="color"
+                fullWidth
+              />
+            ),
             render: rowData => (
               <span
                 style={{
@@ -77,9 +107,16 @@ const Products = props => {
           },
           { title: 'nom', field: 'nom' },
           { title: 'Code barre', field: 'codebarre' },
-          { title: 'Catégorie mère', field: 'subCategory.category.nom' },
-          { title: 'Sous-catégorie', field: 'subCategory.nom' },
-          { title: 'Code barre', field: 'codebarre' },
+          {
+            title: 'Catégorie mère',
+            editable: 'never',
+            field: 'subCategory.category.nom'
+          },
+          {
+            title: 'Sous-catégorie',
+            editable: 'never',
+            field: 'subCategory.nom'
+          },
           { title: 'Prix unitaire', field: 'pu' },
           { title: 'Etat existe', field: 'etatexiste' }
         ]}
@@ -90,14 +127,6 @@ const Products = props => {
         }}
         title="Produits"
         icons={tableIcons}
-        actions={[
-          {
-            icon: () => <Delete />,
-            tooltip: 'supprimer produit',
-            onClick: (event, rowData) =>
-              ProductsService.removeProduct(rowData.id)
-          }
-        ]}
       />
       <Dialog
         style={{ padding: '3em' }}
