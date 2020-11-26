@@ -42,7 +42,7 @@ export default function SessionPOS() {
           variant="contained"
           type="submit"
           onClick={onSubmit}>
-          Demareer la caisse
+          Démarrer la caisse
         </Button>
       </Grid>
     </>

@@ -1,6 +1,6 @@
 export const API_URL = 'http://93.188.163.195:8080/api';
-export const PRINTING_SERVER = '192.168.1.4';
-export const anonymUserId = 4;
+export const PRINTING_SERVER = '192.168.43.111';
+export const anonymUserId = 2;
 // Feed control sequences
 export const CTL_LF = '\x0a'; // Print and line feed
 export const CTL_FF = '\x0c'; // Form feed
