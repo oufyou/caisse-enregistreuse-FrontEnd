@@ -210,12 +210,12 @@ export default function Pay() {
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'TVA pour information' + '\x0A',
               'N.      Tx      HT      TAXE      TTC' + '\x0A',
-              `${nbArticles}      10.00      ${(
+              `${nbArticles}    10.00    ${(
                 (totalPrice + supplement) /
                 1.1
-              ).toFixed(2)}      ${(totalPrice + supplement / 1.1).toFixed(
+              ).toFixed(2)}    ${(totalPrice + supplement / 1.1).toFixed(
                 2
-              )}      ${((totalPrice + supplement) * 0.1).toFixed(2)}` + '\x0A',
+              )}    ${((totalPrice + supplement) * 0.1).toFixed(2)}` + '\x0A',
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'Total :      ' +
                 (response.data.montant - response.data.rendre).toFixed(2) +
