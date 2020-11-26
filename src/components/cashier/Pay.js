@@ -91,7 +91,7 @@ export default function Pay() {
       customer_id: customerId.id,
       caissier_id: JSON.parse(sessionStorage.getItem('user')).id, //l'utilisateur authentifié
       saleLines: saleLines,
-      total: totalPrice,
+      total: totalPrice + supplement,
       finished: montant - totalPrice >= 0, // l'etat selon la difference entre le montant est total; s
       comment: commentaire.length > 0 ? commentaire : null,
       Supplement: supplement | 0
@@ -211,11 +211,12 @@ export default function Pay() {
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'TVA pour information' + '\x0A',
               'N.      Tx      HT      TAXE      TTC' + '\x0A',
-              `${nbArticles}      10.00      ${(totalPrice / 1.1).toFixed(
+              `${nbArticles}      10.00      ${(
+                (totalPrice + supplement) /
+                1.1
+              ).toFixed(2)}      ${(totalPrice + supplement / 1.1).toFixed(
                 2
-              )}      ${(totalPrice / 1.1).toFixed(2)}      ${(
-                totalPrice * 0.1
-              ).toFixed(2)}` + '\x0A',
+              )}      ${((totalPrice + supplement) * 0.1).toFixed(2)}` + '\x0A',
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'Total :      ' +
                 (response.data.montant - response.data.rendre).toFixed(2) +
@@ -505,7 +506,7 @@ export default function Pay() {
         </Grid>
         <Grid container alignContent="center" alignItems="center">
           <Grid md={2} xs={12}>
-            <Typography variant="h3">Montant supplementaire</Typography>
+            <Typography variant="h3">Montant supplémentaire</Typography>
           </Grid>
           <Grid md={5} xs={12}>
             <TextField
@@ -515,7 +516,7 @@ export default function Pay() {
               variant="outlined"
               value={supplement}
               onChange={e => setSupplement(Number.parseInt(e.target.value) | 0)}
-              label="Montant supplementaire"
+              label="Montant supplémentaire"
             />
           </Grid>
         </Grid>
