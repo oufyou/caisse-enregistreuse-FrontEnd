@@ -263,7 +263,7 @@ class App extends Component {
     return (
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Provider store={store}>
-          <BrowserRouter basename="/">
+          <BrowserRouter basename="/cashlily">
             <CssBaseline />
             <ScrollToTop>
               <Routes />

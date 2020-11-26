@@ -11,7 +11,7 @@ const HeaderLogo = props => {
   return (
     <Fragment>
       <div className={clsx('app-header-logo', {})}>
-        <Box className="header-logo-wrapper" title="Lilly Gourmet">
+        <Box className="header-logo-wrapper" title="Lily Gourmet">
           <Link to="/DashboardDefault" className="header-logo-wrapper-link">
             <IconButton
               color="primary"
@@ -19,12 +19,12 @@ const HeaderLogo = props => {
               className="header-logo-wrapper-btn">
               <img
                 className="app-header-logo-img"
-                alt="Lilly Gourmet"
+                alt="Lily Gourmet"
                 src={projectLogo}
               />
             </IconButton>
           </Link>
-          <Box className="header-logo-text">Lilly Gourmet</Box>
+          <Box className="header-logo-text">Lily Gourmet</Box>
         </Box>
       </div>
     </Fragment>

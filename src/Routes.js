@@ -14,13 +14,13 @@ import { LeftSidebar, PresentationLayout } from './layout-blueprints';
 
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import AuthenticationService from './service/AuthenticationService';
-import Users from './components/admin/Users';
 
 const DashboardDefault = lazy(() => import('./components/cashier/Dashboard'));
 const LandingPage = lazy(() => import('./example-pages/LandingPage'));
 const Login = lazy(() => import('./components/Login'));
 
 const Pay = lazy(() => import('./components/cashier/Pay'));
+const Users = lazy(() => import('./components/admin/Users'));
 const Customers = lazy(() => import('./components/admin/Customers'));
 const Categories = lazy(() => import('./components/admin/Categories'));
 const Sales = lazy(() => import('./components/admin/Sales'));
@@ -63,7 +63,7 @@ const Routes = () => {
         <Suspense
           fallback={
             <div className="d-flex align-items-center vh-100 justify-content-center text-center font-weight-bold font-size-lg py-3">
-              <div className="w-50 mx-auto">Lilly Gourmet</div>
+              <div className="w-50 mx-auto">Lily Gourmet</div>
             </div>
           }>
           <Switch>

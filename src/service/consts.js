@@ -1,4 +1,4 @@
-export const API_URL = 'http://localhost:8080/api';
+export const API_URL = 'http://93.188.163.195:8080/api';
 export const PRINTING_SERVER = '192.168.1.4';
 export const anonymUserId = 4;
 // Feed control sequences

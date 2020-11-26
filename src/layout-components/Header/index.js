@@ -58,7 +58,7 @@ const Header = props => {
                 </IconButton>
               </Link>
               <Hidden smDown>
-                <Box className="app-logo-text">Lilly Gourmet</Box>
+                <Box className="app-logo-text">Lily Gourmet</Box>
               </Hidden>
             </Box>
           </Hidden>
@@ -67,7 +67,7 @@ const Header = props => {
             <HeaderUserbox />
             <Link to={'/Pay'}>
               <Button variant="contained" color="primary">
-                Completer le dernier paiement
+                Compléter le dernier paiement
               </Button>
             </Link>
             <Box className="toggle-sidebar-btn-mobile">

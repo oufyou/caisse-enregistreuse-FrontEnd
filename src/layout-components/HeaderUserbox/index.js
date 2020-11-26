@@ -42,7 +42,7 @@ export default function HeaderUserbox() {
           <div className="font-weight-bold pt-2 line-height-1">
             {AuthenticationService.getLoggedInUserName()}
           </div>
-          <span className="text-white-50">Lilly Gourmet</span>
+          <span className="text-white-50">Lily Gourmet</span>
         </div>
         <span className="pl-1 pl-xl-3">
           <FontAwesomeIcon icon={['fas', 'angle-down']} className="opacity-5" />
