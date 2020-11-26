@@ -356,7 +356,7 @@ export default function Pay() {
               </div>
             ))}
             <Typography style={{ padding: 10 }} variant="h3" align="center">
-              Total : {totalPrice} MAD{' '}
+              Total : {totalPrice+supplement} MAD{' '}
             </Typography>
           </Card>
         </Grid>
@@ -479,11 +479,11 @@ export default function Pay() {
         <Grid md={4} xs={12} style={{ marginLeft: 20 }}>
           {montant - totalPrice >= 0 ? (
             <Typography variant="h3" style={{ color: '#488E48', margin: 20 }}>
-              A RENDRE : {montant - totalPrice} DH
+              A RENDRE : {montant - totalPrice+supplement} DH
             </Typography>
           ) : (
             <Typography variant="h3" style={{ color: '#B8081D', margin: 20 }}>
-              IL RESTE : {totalPrice - montant} DH
+              IL RESTE : {totalPrice+supplement - montant} DH
             </Typography>
           )}
         </Grid>
