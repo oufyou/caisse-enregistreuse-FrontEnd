@@ -64,7 +64,6 @@ export default function Pay() {
    *
    *
    *
-   *
    * */
   const cartItems = JSON.parse(sessionStorage.getItem('cart'));
   const saleLines = [];
@@ -92,7 +91,7 @@ export default function Pay() {
       caissier_id: JSON.parse(sessionStorage.getItem('user')).id, //l'utilisateur authentifié
       saleLines: saleLines,
       total: totalPrice + supplement,
-      finished: montant - totalPrice >= 0, // l'etat selon la difference entre le montant est total; s
+      finished: montant - (totalPrice + supplement) >= 0, // l'etat selon la difference entre le montant est total; s
       comment: commentaire.length > 0 ? commentaire : null,
       Supplement: supplement | 0
     };
@@ -101,8 +100,8 @@ export default function Pay() {
         const payment = {
           type: typePaiement,
           montant: montant,
-          rendre: montant - totalPrice,
-          closed: montant - totalPrice >= 0,
+          rendre: montant - (totalPrice + supplement),
+          closed: montant - (totalPrice + supplement) >= 0,
           comment: commentaire.length > 0 ? commentaire : null,
           sale_id: response.data.id
         };
