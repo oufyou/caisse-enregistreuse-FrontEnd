@@ -211,11 +211,14 @@ export default function Pay() {
               'TVA pour information' + '\x0A',
               'N.      Tx      HT      TAXE      TTC' + '\x0A',
               `${nbArticles}    10.00    ${(
-                (totalPrice + supplement) /
-                1.1
-              ).toFixed(2)}    ${((totalPrice + supplement) * 0.1).toFixed(
-                2
-              )}    ${(totalPrice + supplement).toFixed(2)}` + '\x0A',
+                (totalPrice + supplement) *
+                0.9
+              ).toFixed(2)}    ${(
+                totalPrice +
+                supplement -
+                (totalPrice + supplement) * 0.9
+              ).toFixed(2)}    ${(totalPrice + supplement).toFixed(2)}` +
+                '\x0A',
               'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' + '\x0A',
               'Total :      ' +
                 (response.data.montant - response.data.rendre).toFixed(2) +
@@ -477,9 +480,9 @@ export default function Pay() {
         </Grid>
 
         <Grid md={4} xs={12} style={{ marginLeft: 20 }}>
-          {montant - totalPrice >= 0 ? (
+          {montant - (totalPrice + supplement) >= 0 ? (
             <Typography variant="h3" style={{ color: '#488E48', margin: 20 }}>
-              A RENDRE : {montant - totalPrice + supplement} DH
+              A RENDRE : {montant - (totalPrice + supplement)} DH
             </Typography>
           ) : (
             <Typography variant="h3" style={{ color: '#B8081D', margin: 20 }}>
