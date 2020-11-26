@@ -50,20 +50,20 @@ const Login = () => {
             <Container maxWidth="md" className="pb-5">
               <div className="text-center">
                 <h1 className="display-2 mb-5 text-white font-weight-bold">
-                  Lilly Gourmet
+                  Lily Gourmet
                 </h1>
                 <Card>
-                  <CardHeader>Login</CardHeader>
+                  <CardHeader>S'identifier</CardHeader>
                   <CardContent>
                     <Grid container spacing={4}>
                       <Grid item md={12}>
                         {/*<ShowInvalidCredentials hasLoginFailed={hasLoginFailed}/>*/}
                         {hasLoginFailed && (
                           <div className="alert alert-warning">
-                            Invalid Credentials
+                            Les informations d'identification invalides
                           </div>
                         )}
-                        {showSuccessMessage && <div>Login Sucessful</div>}
+                        {showSuccessMessage && <div>Connexion réussie</div>}
                         {/*<ShowLoginSuccessMessage showSuccessMessage={showSuccessMessage}/>*/}
                       </Grid>
                       <Grid item md={12}>
@@ -95,7 +95,7 @@ const Login = () => {
                           variant="contained"
                           color="primary"
                           onClick={loginClicked}>
-                          Login
+                          S'identifier
                         </Button>
                       </Grid>
                     </Grid>
