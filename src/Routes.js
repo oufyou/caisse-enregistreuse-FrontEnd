@@ -29,6 +29,7 @@ const SubCategories = lazy(() => import('./components/admin/SubCategories'));
 const TicketZ = lazy(() => import('./components/admin/TicketZ'));
 const TicketX = lazy(() => import('./components/admin/TicketX'));
 const Payments = lazy(() => import('./components/admin/Payments'));
+const Refunds = lazy(() => import('./components/admin/Refunds'));
 const Cashiers = lazy(() => import('./components/admin/Cashiers'));
 const SessionPOSClose = lazy(() => import('./components/SessionPOSClose'));
 const SessionPOS = lazy(() => import('./components/SessionPOS'));
@@ -99,7 +100,8 @@ const Routes = () => {
                 '/SessionPOSClose',
                 '/TicketZ',
                 '/TicketX',
-                '/Users'
+                '/Users',
+                '/Refunds'
               ]}>
               <LeftSidebar>
                 <Switch location={location} key={location.pathname}>
@@ -137,6 +139,7 @@ const Routes = () => {
                     <AuthenticatedRoute path="/Products" component={Products} />
                     <AuthenticatedRoute path="/Sales" component={Sales} />
                     <AuthenticatedRoute path="/Payments" component={Payments} />
+                    <AuthenticatedRoute path="/Refunds" component={Refunds} />
                     <AuthenticatedRoute
                       path="/Customers"
                       component={Customers}

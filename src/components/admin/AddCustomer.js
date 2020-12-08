@@ -13,13 +13,15 @@ import CustomersService from '../../service/CustomersService';
 const AddCustomer = props => {
   const history = useHistory();
   const { showAddCustomer, setShowAddCustomer } = props;
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [sexe, setSexe] = useState('');
-  const [email, setEmail] = useState('');
-  const [bdate, setBdate] = useState('');
-  const [phone, setPhone] = useState('');
-  const [adress, setAdress] = useState('');
+  const [firstName, setFirstName] = useState('Client');
+  const [lastName, setLastName] = useState('Client');
+  const [sexe, setSexe] = useState('S');
+  const [email, setEmail] = useState(
+    `client${uuidv4().substring(0, 7)}@anonyme.com`
+  );
+  const [bdate, setBdate] = useState('2020-12-07');
+  const [phone, setPhone] = useState('0000000000');
+  const [adress, setAdress] = useState('Somewhere');
   const onSubmit = e => {
     e.preventDefault();
     const username = lastName + uuidv4().substring(0, 7);

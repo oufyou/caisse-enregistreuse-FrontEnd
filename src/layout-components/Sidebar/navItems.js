@@ -88,6 +88,12 @@ if (roles.includes('ROLE_ADMIN')) {
     "icon": "DashboardTwoToneIcon",
     "to": "/Sales"
   },
+  
+    {
+    "label": "Historique des crédits",
+    "icon": "DashboardTwoToneIcon",
+    "to": "/Refunds"
+  },
     {
     "label": "Historique des paiements",
     "icon": "DashboardTwoToneIcon",
@@ -120,11 +126,15 @@ if (roles.includes('ROLE_ADMIN')) {
     "label": "Historique des paiements",
     "icon": "DashboardTwoToneIcon",
     "to": "/Payments"
-  },   {
+  },  {
+    "label": "Historique des crédits",
+    "icon": "DashboardTwoToneIcon",
+    "to": "/Refunds"
+  }, {
     "label": "Ticket X",
     "icon": "DashboardTwoToneIcon",
     "to": "/TicketX"
-  },
+  }
 ]`;
 }
 export default [

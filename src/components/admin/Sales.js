@@ -22,6 +22,7 @@ const Sales = props => {
     <>
       <MaterialTable
         columns={[
+          { title: '#', field: 'id', width: '1' },
           {
             title: 'Client',
             customFilterAndSearch: (term, rowData) =>

@@ -493,6 +493,22 @@ export default function Pay() {
       </Grid>
       <Grid container alignContent="center" alignItems="center">
         <Grid md={2} xs={12}>
+          <Typography variant="h3">Montant supplémentaire</Typography>
+        </Grid>
+        <Grid md={5} xs={12}>
+          <TextField
+            fullWidth
+            native
+            style={{ height: '4em', margin: 20 }}
+            variant="outlined"
+            value={supplement}
+            onChange={e => setSupplement(Number.parseInt(e.target.value) | 0)}
+            label="Montant supplémentaire"
+          />
+        </Grid>
+      </Grid>
+      <Grid container alignContent="center" alignItems="center">
+        <Grid md={2} xs={12}>
           <Typography variant="h3">Commentaire</Typography>
         </Grid>
         <Grid md={5} xs={12}>
@@ -505,22 +521,6 @@ export default function Pay() {
             onChange={e => setCommentaire(e.target.value)}
             label="Commentaire"
           />
-        </Grid>
-        <Grid container alignContent="center" alignItems="center">
-          <Grid md={2} xs={12}>
-            <Typography variant="h3">Montant supplémentaire</Typography>
-          </Grid>
-          <Grid md={5} xs={12}>
-            <TextField
-              fullWidth
-              native
-              style={{ height: '4em', margin: 20 }}
-              variant="outlined"
-              value={supplement}
-              onChange={e => setSupplement(Number.parseInt(e.target.value) | 0)}
-              label="Montant supplémentaire"
-            />
-          </Grid>
         </Grid>
       </Grid>
 
