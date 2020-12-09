@@ -174,12 +174,14 @@ const Refunds = props => {
                 onChange={e => setComment(e.target.value)}
                 label="Commentaire"
               />
-              {parseFloat(refundData?.rendre) + montant >= 0 ? (
+              {parseFloat(refundData?.rendre) + montant > 0 ? (
                 <Typography
                   variant="h4"
                   style={{ color: '#488E48', margin: 20 }}>
                   A RENDRE : {parseFloat(refundData?.rendre) + montant} DH
                 </Typography>
+              ) : parseFloat(refundData?.rendre) + montant === 0 ? (
+                ''
               ) : (
                 <Typography
                   variant="h4"

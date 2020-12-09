@@ -95,6 +95,9 @@ const DetailsVente = props => {
                 </div>
               </div>
             ))}
+            <Typography style={{ padding: 10 }} variant="h4" align="center">
+              Supplement : {sale.supplement} MAD{' '}
+            </Typography>
             <Typography style={{ padding: 10 }} variant="h3" align="center">
               Total : {totalPrice} MAD{' '}
             </Typography>

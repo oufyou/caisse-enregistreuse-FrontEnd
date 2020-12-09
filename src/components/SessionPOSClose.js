@@ -32,7 +32,7 @@ export default function SessionPOSClose() {
           style={{ height: '4em', margin: 20 }}
           variant="outlined"
           value={montant}
-          onChange={e => setMontant(Number.parseInt(e.target.value))}
+          onChange={e => setMontant(Number.parseInt(e.target.value) | 0)}
           label="Montant"
         />
       </Grid>

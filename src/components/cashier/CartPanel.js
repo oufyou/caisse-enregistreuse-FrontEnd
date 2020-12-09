@@ -22,6 +22,7 @@ export const CartPanel = props => {
           oldItems[oldItems.length - 1].quantity = quantity;
           return [...oldItems];
         });
+        setQuantity(1);
       } else if (value === 'c') setQuantity(0);
       else {
         setQuantity(pastValue =>
