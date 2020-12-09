@@ -8,8 +8,12 @@ class CategoriesService {
   updateCategory(category) {
     return axios.put(API_URL + '/Categories', category);
   }
-  createCategorie(nom, desc) {
-    return axios.post(API_URL + '/Categories', { nom: nom, description: desc });
+  createCategorie(nom, desc, display = true) {
+    return axios.post(API_URL + '/Categories', {
+      nom: nom,
+      description: desc,
+      display: display
+    });
   }
 
   removeCategorie(id) {

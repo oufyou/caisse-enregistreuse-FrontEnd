@@ -18,7 +18,8 @@ class ProductsService {
     pu,
     etatexiste,
     codecolor,
-    subcategory_id
+    subcategory_id,
+    display = true
   ) {
     return axios.post(API_URL + '/Products', {
       nom,
@@ -27,7 +28,8 @@ class ProductsService {
       pu,
       etatexiste,
       codecolor,
-      subcategory_id: subcategory_id
+      subcategory_id: subcategory_id,
+      display: display
     });
   }
   removeProduct(id) {

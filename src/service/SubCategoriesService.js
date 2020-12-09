@@ -11,12 +11,13 @@ class SubCategoriesService {
   getAllByCategory(id) {
     return axios.get(API_URL + '/SubCategories/category=' + id);
   }
-  createSubCategorie(nom, desc, category) {
+  createSubCategorie(nom, desc, category, display = true) {
     return axios.post(API_URL + '/SubCategories', {
       nom: nom,
       description: desc,
       imagelink: '',
-      category_id: category
+      category_id: category,
+      display: display
     });
   }
   removeSubCategory(id) {
