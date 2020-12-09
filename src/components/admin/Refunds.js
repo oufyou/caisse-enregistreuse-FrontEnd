@@ -93,7 +93,7 @@ const Refunds = props => {
                   );
                   setShowRefund(true);
                 }}
-                style={{ width: 50, borderRadius: '50%' }}
+                style={{ width: 100, borderRadius: '50%' }}
                 alt="image">
                 Rembourser
               </Button>
@@ -174,26 +174,23 @@ const Refunds = props => {
                 onChange={e => setComment(e.target.value)}
                 label="Commentaire"
               />
-              {parseFloat(refundData?.rendre) + montant > 0 ? (
+              {(parseFloat(refundData?.rendre) | 0) + montant >= 0 ? (
                 <Typography
                   variant="h4"
                   style={{ color: '#488E48', margin: 20 }}>
-                  A RENDRE : {parseFloat(refundData?.rendre) + montant} DH
+                  A RENDRE : {(parseFloat(refundData?.rendre) | 0) + montant} DH
                 </Typography>
-              ) : parseFloat(refundData?.rendre) + montant === 0 ? (
-                ''
               ) : (
                 <Typography
                   variant="h4"
                   style={{ color: '#B8081D', margin: 20 }}>
-                  IL RESTERA : {-1 * (parseFloat(refundData?.rendre) + montant)}{' '}
-                  DH
+                  IL RESTERA :{' '}
+                  {-1 * ((parseFloat(refundData?.rendre) | 0) + montant)} DH
                 </Typography>
               )}
               <Button
                 variant="contained"
                 color="secondary"
-                style={{ padding: '1em' }}
                 onClick={() => {
                   let rendre;
 
@@ -212,7 +209,7 @@ const Refunds = props => {
                     setShowRefund(!res.data)
                   );
                 }}
-                style={{ width: 50, borderRadius: '5%' }}
+                style={{ width: 100, borderRadius: '5%' }}
                 alt="image">
                 Rembourser
               </Button>
