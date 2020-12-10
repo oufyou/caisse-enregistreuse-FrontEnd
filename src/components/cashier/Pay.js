@@ -30,7 +30,7 @@ export default function Pay() {
   const [customers, setCustomers] = useState([]);
   const [customer, setCustomer] = useState('');
   const [customerId, setCustomerId] = useState(0);
-  const [typePaiement, setTypePaiement] = useState('');
+  const [typePaiement, setTypePaiement] = useState('espèces');
   const [montant, setMontant] = useState(0);
   const [supplement, setSupplement] = useState(0);
   const [commentaire, setCommentaire] = useState('');
@@ -366,6 +366,22 @@ export default function Pay() {
       </Grid>
       <Grid container alignContent="center" alignItems="center">
         <Grid md={2} xs={12}>
+          <Typography variant="h3">Montant supplémentaire</Typography>
+        </Grid>
+        <Grid md={5} xs={12}>
+          <TextField
+            fullWidth
+            native
+            style={{ height: '4em', margin: 20 }}
+            variant="outlined"
+            value={supplement}
+            onChange={e => setSupplement(Number.parseInt(e.target.value) | 0)}
+            label="Montant supplémentaire"
+          />
+        </Grid>
+      </Grid>
+      <Grid container alignContent="center" alignItems="center">
+        <Grid md={2} xs={12}>
           <Typography variant="h3">Client</Typography>
         </Grid>
 
@@ -453,7 +469,6 @@ export default function Pay() {
               value={typePaiement}
               onChange={e => setTypePaiement(e.target.value)}
               label="Catégorie mère">
-              <option aria-label="None" value="" />
               <option value="espèces">Espèces</option>
               <option value="chèque">Chèque</option>
               <option value="CB">Carte Bancaire</option>
@@ -491,22 +506,7 @@ export default function Pay() {
           )}
         </Grid>
       </Grid>
-      <Grid container alignContent="center" alignItems="center">
-        <Grid md={2} xs={12}>
-          <Typography variant="h3">Montant supplémentaire</Typography>
-        </Grid>
-        <Grid md={5} xs={12}>
-          <TextField
-            fullWidth
-            native
-            style={{ height: '4em', margin: 20 }}
-            variant="outlined"
-            value={supplement}
-            onChange={e => setSupplement(Number.parseInt(e.target.value) | 0)}
-            label="Montant supplémentaire"
-          />
-        </Grid>
-      </Grid>
+
       <Grid container alignContent="center" alignItems="center">
         <Grid md={2} xs={12}>
           <Typography variant="h3">Commentaire</Typography>

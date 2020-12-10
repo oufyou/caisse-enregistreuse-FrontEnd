@@ -13,6 +13,9 @@ import DetailsVente from '../cashier/DetailsVente';
 
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
 
 const Refunds = props => {
   const [sales, setSales] = useState([]);
@@ -22,7 +25,7 @@ const Refunds = props => {
   const [saleData, setSaleData] = useState();
   const [refundData, setRefundData] = useState();
   const [montant, setMontant] = useState(0);
-  const [type, setType] = useState('');
+  const [type, setType] = useState('espèces');
   const [comment, setComment] = useState('');
 
   useEffect(() => {
@@ -107,7 +110,7 @@ const Refunds = props => {
           pageSizeOptions: [10],
           actionsColumnIndex: -1
         }}
-        title="Remboursements"
+        title="Rêgelement"
         icons={tableIcons}
       />
       <Dialog
@@ -156,15 +159,28 @@ const Refunds = props => {
                 }
                 label="Montant de remboursement"
               />
-              <TextField
+              <FormControl
                 fullWidth
-                native
                 style={{ height: '4em', margin: 20 }}
-                variant="outlined"
-                value={type}
-                onChange={e => setType(e.target.value)}
-                label="Type de remboursement"
-              />
+                variant="outlined">
+                <InputLabel htmlFor="outlined-age-native-simple">
+                  Type de paiement
+                </InputLabel>
+                <Select
+                  fullWidth
+                  native
+                  value={type}
+                  onChange={e => setType(e.target.value)}
+                  label="Catégorie mère">
+                  <option defaultChecked value="espèces">
+                    Espèces
+                  </option>
+                  <option value="chèque">Chèque</option>
+                  <option value="CB">Carte Bancaire</option>
+                  <option value="virement">Virement</option>
+                  ))}
+                </Select>
+              </FormControl>
               <TextField
                 fullWidth
                 native
