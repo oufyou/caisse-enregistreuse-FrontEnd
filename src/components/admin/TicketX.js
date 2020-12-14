@@ -45,7 +45,7 @@ const TicketX = props => {
                 <h5>Total des tickets:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketX.Total_des_tickets?.toFixed(2)} MAD</h5>
+                <h5>{ticketX.Total_des_tickets?.toFixed(2) | 0} MAD</h5>
               </Grid>
             </Grid>
             <Grid container>
@@ -71,7 +71,7 @@ const TicketX = props => {
                 <h5>Encaissements sur tickets:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketX.Totalencaissements?.toFixed(2)} MAD</h5>
+                <h5>{ticketX.Totalencaissements?.toFixed(2) | 0} MAD</h5>
               </Grid>
             </Grid>
             <Grid container>
@@ -97,7 +97,7 @@ const TicketX = props => {
                 <h5>Total facturé HT:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketX.TotalfactureHT?.toFixed(2)} MAD</h5>
+                <h5>{ticketX.TotalfactureHT?.toFixed(2) | 0} MAD</h5>
               </Grid>
             </Grid>
             <Grid container>
@@ -105,7 +105,7 @@ const TicketX = props => {
                 <h5>Total facturé TTC:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketX.TotalfactureTTC?.toFixed(2)} MAD</h5>
+                <h5>{ticketX.TotalfactureTTC?.toFixed(2) | 0} MAD</h5>
               </Grid>
             </Grid>
             <Grid container>
@@ -113,7 +113,7 @@ const TicketX = props => {
                 <h5>Total facturé TVA:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketX.TotalfactureTVA?.toFixed(2)} MAD</h5>
+                <h5>{ticketX.TotalfactureTVA?.toFixed(2) | 0} MAD</h5>
               </Grid>
             </Grid>
             <br />
@@ -124,7 +124,7 @@ const TicketX = props => {
                   <h5>{item.first_name + ' ' + item.last_name}</h5>
                 </Grid>
                 <Grid item xs={4}>
-                  <h5>{item.total.toFixed(2)} MAD</h5>
+                  <h5>{item.total.toFixed(2) | 0} MAD</h5>
                 </Grid>
               </Grid>
             ))}
@@ -136,7 +136,7 @@ const TicketX = props => {
                   <h5>{item.type_payement}</h5>
                 </Grid>
                 <Grid item xs={4}>
-                  <h5>{item.total.toFixed(2)} MAD</h5>
+                  <h5>{item.total.toFixed(2) | 0} MAD</h5>
                 </Grid>
               </Grid>
             ))}
