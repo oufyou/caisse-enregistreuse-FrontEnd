@@ -103,7 +103,9 @@ const TicketZ = props => {
                 <h5>Total des tickets:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketZByMonth.Total_des_tickets_Mois?.toFixed(2)} MAD</h5>
+                <h5>
+                  {ticketZByMonth.Total_des_tickets_Mois?.toFixed(2) | 0} MAD
+                </h5>
               </Grid>
             </Grid>
             <Grid container>
@@ -130,7 +132,7 @@ const TicketZ = props => {
               </Grid>
               <Grid item xs={4}>
                 <h5>
-                  {ticketZByMonth.Totalencaissements_Mois?.toFixed(2)} MAD
+                  {ticketZByMonth.Totalencaissements_Mois?.toFixed(2) | 0} MAD
                 </h5>
               </Grid>
             </Grid>
@@ -157,7 +159,9 @@ const TicketZ = props => {
                 <h5>Total facturé HT:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketZByMonth.TotalfactureHT_Mois?.toFixed(2)} MAD</h5>
+                <h5>
+                  {ticketZByMonth.TotalfactureHT_Mois?.toFixed(2) | 0} MAD
+                </h5>
               </Grid>
             </Grid>
             <Grid container>
@@ -165,7 +169,9 @@ const TicketZ = props => {
                 <h5>Total facturé TTC:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketZByMonth.TotalfactureTTC_Mois?.toFixed(2)} MAD</h5>
+                <h5>
+                  {ticketZByMonth.TotalfactureTTC_Mois?.toFixed(2) | 0} MAD
+                </h5>
               </Grid>
             </Grid>
             <Grid container>
@@ -173,7 +179,9 @@ const TicketZ = props => {
                 <h5>Total facturé TVA:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketZByMonth.TotalfactureTVA_Mois?.toFixed(2)} MAD</h5>
+                <h5>
+                  {ticketZByMonth.TotalfactureTVA_Mois?.toFixed(2) | 0} MAD
+                </h5>
               </Grid>
             </Grid>
             <br />
@@ -184,7 +192,7 @@ const TicketZ = props => {
                   <h5>{item.first_name + ' ' + item.last_name}</h5>
                 </Grid>
                 <Grid item xs={4}>
-                  <h5>{item.total.toFixed(2)} MAD</h5>
+                  <h5>{item.total.toFixed(2) | 0} MAD</h5>
                 </Grid>
               </Grid>
             ))}
@@ -197,7 +205,7 @@ const TicketZ = props => {
                     <h5>{item.type_payement}</h5>
                   </Grid>
                   <Grid item xs={4}>
-                    <h5>{item.total.toFixed(2)} MAD</h5>
+                    <h5>{item.total.toFixed(2) | 0} MAD</h5>
                   </Grid>
                 </Grid>
               )
@@ -221,7 +229,9 @@ const TicketZ = props => {
                 <h5>Total des tickets:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketZByDay.Total_des_tickets_Jour?.toFixed(2)} MAD</h5>
+                <h5>
+                  {ticketZByDay.Total_des_tickets_Jour?.toFixed(2) | 0} MAD
+                </h5>
               </Grid>
             </Grid>
             <Grid container>
@@ -247,7 +257,9 @@ const TicketZ = props => {
                 <h5>Encaissements sur tickets:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketZByDay.Totalencaissements_Jour?.toFixed(2)} MAD</h5>
+                <h5>
+                  {ticketZByDay.Totalencaissements_Jour?.toFixed(2) | 0} MAD
+                </h5>
               </Grid>
             </Grid>
             <Grid container>
@@ -273,7 +285,7 @@ const TicketZ = props => {
                 <h5>Total facturé HT:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketZByDay.TotalfactureHT_Jour?.toFixed(2)} MAD</h5>
+                <h5>{ticketZByDay.TotalfactureHT_Jour?.toFixed(2) | 0} MAD</h5>
               </Grid>
             </Grid>
             <Grid container>
@@ -281,7 +293,7 @@ const TicketZ = props => {
                 <h5>Total facturé TTC:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketZByDay.TotalfactureTTC_Jour?.toFixed(2)} MAD</h5>
+                <h5>{ticketZByDay.TotalfactureTTC_Jour?.toFixed(2) | 0} MAD</h5>
               </Grid>
             </Grid>
             <Grid container>
@@ -289,7 +301,7 @@ const TicketZ = props => {
                 <h5>Total facturé TVA:</h5>
               </Grid>
               <Grid item xs={4}>
-                <h5>{ticketZByDay.TotalfactureTVA_Jour?.toFixed(2)} MAD</h5>
+                <h5>{ticketZByDay.TotalfactureTVA_Jour?.toFixed(2) | 0} MAD</h5>
               </Grid>
             </Grid>
             <br />
@@ -300,7 +312,7 @@ const TicketZ = props => {
                   <h5>{item.first_name + ' ' + item.last_name}</h5>
                 </Grid>
                 <Grid item xs={4}>
-                  <h5>{item.total.toFixed(2)} MAD</h5>
+                  <h5>{item.total.toFixed(2) | 0} MAD</h5>
                 </Grid>
               </Grid>
             ))}
@@ -312,7 +324,7 @@ const TicketZ = props => {
                   <h5>{item.type_payement}</h5>
                 </Grid>
                 <Grid item xs={4}>
-                  <h5>{item.total.toFixed(2)} MAD</h5>
+                  <h5>{item.total.toFixed(2) | 0} MAD</h5>
                 </Grid>
               </Grid>
             ))}
